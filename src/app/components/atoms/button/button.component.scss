@@ -1,0 +1,61 @@
+@import "styles";
+
+.btn{
+    
+    display: flex;
+    gap: 8px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 12px 52px;
+    @extend .body-m-regular;
+    cursor: pointer;
+
+    &-m{
+        @extend .body-s-regular;
+        padding: 8px 28px;
+    }
+
+    &-s{
+        @extend .body-xs;
+        padding: 4px 12px;
+    }
+
+    &-main{
+        background-color: $purple;
+        color: $white;
+
+        &:hover{
+            background-color: $light-purple;
+        }
+
+        &:disabled{
+            background-color: $disabled;
+            color: $white;
+            border-color: $disabled;
+            cursor: not-allowed;
+        }
+    }
+    
+
+    &-secondary{
+        background-color: $white;
+        color: $purple;
+        border-color: $purple;
+
+        &:hover{
+            color: $light-purple;
+            border-color: $light-purple;
+        }
+
+        &:disabled{
+            color: $disabled;
+            border-color: $disabled;
+            cursor: not-allowed;
+        }
+        
+    
+    }
+
+    
+
+}   

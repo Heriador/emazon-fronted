@@ -1,0 +1,26 @@
+@import "styles";
+
+.input{
+    padding: 0.75rem;
+    border: 0.1rem solid $spacer-light;
+    border-radius: 2px;
+    width: 19.151rem;
+    color: $black;
+
+    &-error{
+        border: 0.1rem solid $error;
+    }
+
+    &-small{
+        padding: 0.5rem 0.75rem;
+    }
+
+    &:focus{
+        outline: none;
+        border: 0.1rem solid $purple;
+    }
+
+    &:disabled{
+        background-color: $disabled;
+    }
+}

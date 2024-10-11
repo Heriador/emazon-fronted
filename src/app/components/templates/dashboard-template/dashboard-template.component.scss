@@ -1,0 +1,38 @@
+@use "styles" as *;
+
+.layout-wrapper{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "header header header"
+      "content content content"
+      "footer footer footer";
+
+
+    @include desktop{
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+          "header header header header header header header header header header"
+          "content content content content content content content content content content"
+          "footer footer footer footer footer footer footer footer footer footer";
+    }
+
+    &__header {
+        grid-area: header;
+    }
+    
+    &__content {
+        grid-area: content;
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    &__footer {
+        grid-area: footer;
+    }
+}

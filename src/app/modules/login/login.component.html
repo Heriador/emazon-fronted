@@ -1,0 +1,55 @@
+<p class="body-m corp" >login works!</p>
+<app-button 
+    class="btn btn-main"
+    text="prueba"
+    [icon]="true"
+></app-button>
+
+<app-button 
+    class="btn btn-secondary btn-m"
+    text="prueba"
+    [icon]="true"
+></app-button>
+
+<app-button 
+    class="btn btn-secondary btn-s"
+    text="prueba2"
+    [icon]="true"
+    [disabled]="true"
+></app-button>
+
+<app-input type="password" id="far"></app-input>
+<app-input type="text" id="dar" placeholder="input small" class="input-small" ></app-input>
+<app-input type="date"
+[disabled]="true"
+></app-input>
+
+<app-text
+content="text!"
+></app-text>
+
+<app-text [type]="TextType.H2" content="titulo 2" ></app-text>
+
+<app-textarea></app-textarea>
+
+<app-textarea
+    [disabled]="true"></app-textarea>
+
+<app-input-field
+    label="input field"
+    inputType="text"
+    id="input"
+    name="input"
+    placeholder="input"
+    class="input"
+    errorMessage="error"
+></app-input-field>
+
+
+<app-login-form></app-login-form>
+
+<div>
+    <app-icon>
+    
+    </app-icon>
+</div>

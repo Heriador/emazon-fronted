@@ -1,0 +1,13 @@
+
+<ng-container [ngSwitch]="type">
+    <h1 *ngSwitchCase="TextType.H1" [ngClass]="class">{{ content }}</h1>
+    <h2 *ngSwitchCase="TextType.H2" [ngClass]="class">{{ content }}</h2>
+    <h3 *ngSwitchCase="TextType.H3" [ngClass]="class">{{ content }}</h3>
+    <h4 *ngSwitchCase="TextType.H4" [ngClass]="class">{{ content }}</h4>
+    <p *ngSwitchCase="TextType.P" [ngClass]="class" class="body-m">{{ content }}</p>
+    <span *ngSwitchCase="TextType.SPAN" [ngClass]="class">{{ content }}</span>
+    <label *ngSwitchCase="TextType.LABEL" [for]="for" [ngClass]="class" class="body-xs" >{{ content }}</label>
+    <p *ngSwitchDefault [ngClass]="class" class="body-m">{{ content }}</p>
+</ng-container>
+
+

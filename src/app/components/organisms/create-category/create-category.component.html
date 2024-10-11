@@ -1,0 +1,35 @@
+<div class="container">
+    <app-modal [isVisible]="isModalOpen" (close)="closeModal()">
+        <app-text [type]="TextType.H2" content="Crear categoria"></app-text>
+        <app-divider></app-divider>
+        <form class="container-form" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            <div class="container-inputs">
+                <app-input-field 
+                    label="Nombre categoria"
+                    inputType="text"
+                    id="name"
+                    name="name"
+                    placeholder="Nombre categoria"
+                    class="input"
+                    formControlName="name"
+                ></app-input-field>
+                <app-textarea-field
+                    label="Descripcion"
+                    id="description"
+                    name="description"
+                    placeholder="Descripcion"
+                    class="textarea"
+                    formControlName="description"
+                ></app-textarea-field>
+            </div>
+            <div class="container-btn">
+                <app-button
+                    class="btn btn-main btn-s"
+                    text="Crear"
+                ></app-button>  
+            </div>
+        </form>
+
+    </app-modal>
+</div>
+

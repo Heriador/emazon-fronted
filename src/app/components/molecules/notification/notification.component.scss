@@ -1,0 +1,22 @@
+@use "styles" as *;
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    color: $white;
+    &.success {
+      background-color: $approval;
+    }
+    &.error {
+      background-color: $error;
+    }
+    &.info {
+      background-color: $link;
+    }
+    &.warning {
+      background-color: $attention;
+    }
+}

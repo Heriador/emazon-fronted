@@ -1,0 +1,16 @@
+<div class="textarea-field">
+    <app-text [content]="label" [for]="id" [type]="TextType.LABEL"></app-text>
+    <app-textarea
+        [id]="id" 
+        [name]="name" 
+        [placeholder]="placeholder" 
+        [class]="class" 
+        [error]="!!errorMessage"
+        (input)="onInput($event)"
+    ></app-textarea>
+    <div class="error-message" *ngIf="errorMessage">
+        <app-text [content]="errorMessage" class="error body-xs">
+        </app-text>
+    </div>
+
+</div>
