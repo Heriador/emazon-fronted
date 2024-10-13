@@ -1,0 +1,15 @@
+@use "styles" as *;
+
+.input-field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .error-message{
+        align-self: self-end;
+        margin-right: 2rem;
+        
+    }
+
+}
+

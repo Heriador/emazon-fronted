@@ -1,0 +1,110 @@
+@use 'mixins' as *;
+
+html{
+  font-size: 62.5%;
+  width: 100%;
+  height: 100%;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  height: 100%;
+  width: 100%;
+}
+
+h1{
+  @include poppins-semibold;
+  font-size: 29px;
+
+  @include tablet{
+       @include poppins-medium;
+       font-size: 32px;
+  }
+
+  @include desktop{
+       @include poppins-medium;
+       font-size: 44px;
+  }
+}
+
+h2{
+   @include poppins-semibold;
+   font-size: 22px;
+
+   @include tablet{
+        @include poppins-medium;
+        font-size: 24px;
+   }
+
+   @include desktop{
+        @include poppins-medium;
+        font-size: 30px;
+   }
+}
+
+h3{
+   @include poppins-bold;
+   font-size: 19px;
+
+   @include tablet{
+        @include poppins-semibold;
+        font-size: 22px;
+   }
+
+   @include desktop{
+        @include poppins-semibold;
+        font-size: 22px;
+   }
+}
+
+h4{
+   @include poppins-bold;
+   font-size: 16px;
+
+   @include tablet{
+        @include poppins-bold;
+        font-size: 18px;
+   }
+
+   @include desktop{
+        @include poppins-bold;
+        font-size: 18px;
+   }
+}
+
+
+.body-l{
+  @include poppins-regular;
+  font-size: 22px;
+}
+
+.body-m{
+  @include poppins-light;
+  font-size: 18px;
+}
+
+.body-m-regular{
+  @include poppins-regular;
+  font-size: 18px;
+}
+
+.body-s{
+  @include poppins-light;
+  font-size: 16px;
+}
+
+.body-s-regular{
+  @include poppins-regular;
+  font-size: 16px;
+}
+
+.body-xs{
+  @include poppins-regular;
+  font-size: 14px;
+}
+

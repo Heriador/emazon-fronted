@@ -1,0 +1,79 @@
+
+@mixin poppin{
+    font-family: "Poppins", sans-serif;
+}
+
+@mixin poppins-thin {
+    @include poppin;
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+@mixin poppins-extralight {
+    @include poppin;
+    font-weight: 200;
+    font-style: normal;
+  }
+  
+@mixin poppins-light {
+    @include poppin;
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+@mixin poppins-regular {
+    @include poppin;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+@mixin poppins-medium {
+    @include poppin;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+@mixin poppins-semibold {
+    @include poppin;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+@mixin poppins-bold {
+    @include poppin;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+@mixin poppins-extrabold {
+    @include poppin;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+@mixin poppins-black {
+    @include poppin;
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+
+  
+
+@mixin phone{
+    @media (max-width: 480px){
+        @content;
+    }
+}
+
+@mixin tablet{
+    @media (min-width: 768px){
+        @content;
+    }
+}
+
+@mixin desktop{
+    @media (min-width: 1024px){
+        @content;
+    }
+}
