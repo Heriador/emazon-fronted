@@ -1,0 +1,32 @@
+@import "styles";
+
+.textarea{
+    padding: 0.7rem;
+    border: 0.1rem solid $spacer-light;
+    border-radius: 2px;
+    width: 19.151rem;
+
+    &-error{
+        border: 0.15rem solid $error;
+        &:focus{
+            border: none;
+        }
+    }
+
+    &-small{
+        
+        top: 475px;
+        left: 642px;
+        gap: 4px;
+    }
+
+    &:focus{
+        outline: none;
+        border: 0.1rem solid $purple;
+        border-radius: 2px;
+    }
+
+    &:disabled{
+        background-color: $disabled;
+    }
+}

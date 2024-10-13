@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CategoriesComponent } from "src/app/components/pages/categories/categories.component";
-import { DashboardTemplateComponent } from "src/app/components/templates/dashboard-template/dashboard-template.component";
+import { CategoriesComponent } from "src/app/modules/dashboard/components/pages/categories/categories.component";
+import { DashboardTemplateComponent } from "src/app/modules/dashboard/components/templates/dashboard-template/dashboard-template.component";
 
 const routes: Routes = [
     {

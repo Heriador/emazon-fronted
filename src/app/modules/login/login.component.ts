@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TextType } from 'src/app/components/util/enums';
+import { TextType } from '../../shared/constants/enums';
 
 @Component({
   selector: 'app-login',

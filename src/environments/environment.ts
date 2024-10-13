@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   stock_service_url: 'http://localhost:9090',
-  auth_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJzdWIiOiIxIiwiaWF0IjoxNzI4NjAyODI2LCJleHAiOjE3Mjg2Mzg4MjZ9.nkM78Dg1XRyIrPghwi8yCbe0CWw9VO0WhONtLFjaiwQ'
+  auth_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJzdWIiOiIxIiwiaWF0IjoxNzI4NjgxMDkxLCJleHAiOjE3MzEyNzMwOTF9.glxOrHAcahnBNNvxNVPWOE9l8cTXpIp7ZX5Yi7jHLaE'
 };
 
 /*
