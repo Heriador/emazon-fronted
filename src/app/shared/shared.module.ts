@@ -13,6 +13,9 @@ import { HeaderComponent } from './components/organisims/header/header.component
 import { DividerComponent } from './components/atoms/divider/divider.component';
 import { ModalComponent } from './components/organisims/modal/modal.component';
 import { TextareaFieldComponent } from './components/molecules/textarea-field/textarea-field.component';
+import { TableComponent } from './components/organisims/table/table.component';
+import { TableCellComponent } from './components/atoms/table-cell/table-cell.component';
+import { TableHeadComponent } from './components/atoms/table-head/table-head.component';
 
 
 let components = [
@@ -29,6 +32,9 @@ let components = [
   NavComponent,
   HeaderComponent,
   ModalComponent,
+  TableCellComponent,
+  TableHeadComponent,
+  TableComponent
 ]
 
 

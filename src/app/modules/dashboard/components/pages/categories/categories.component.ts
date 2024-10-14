@@ -16,6 +16,8 @@ import {
   RESPONSE_MESSAGE 
 } from '../../../../../shared/constants/category-constant';
 import { HttpStatusCode } from '@angular/common/http';
+import { CategoryResponse } from 'src/app/interfaces/category.interface';
+import { Pagination } from 'src/app/interfaces/paginated.interface';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -25,13 +27,23 @@ export class CategoriesComponent implements OnInit {
 
   TextType = TextType;
   isModalOpen: boolean = false;
+  headArray = [
+    {name: 'Nombre', key: 'name'},
+    {name: 'Descripción', key: 'description'}
+  ]
+  page: number = 0;
+  size: number = 5;
+  isAsc: boolean = true;
+  totalElements: number = 0;
+  totalPages: number = 0;
+  categories: CategoryResponse[] = [];
   public categoryForm: FormGroup;
 
 
 
   constructor(
     public categoryService: CategoryService,
-    private notificationService: NotificationService,
+    private readonly notificationService: NotificationService,
     private readonly formBuilder: FormBuilder
 
   ) { 
@@ -55,9 +67,43 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     
-
+    this.getCategories(this.page,this.size,this.isAsc);
   }
 
+  getCategories(page: number, size: number, isAsc: boolean){
+    this.categoryService.getCategories(page,size,isAsc).subscribe({
+      next: (result: Pagination<CategoryResponse>) => {
+        this.categories = result.content;
+        this.totalElements = result.totalElements;
+        this.totalPages = result.totalPages;
+      },
+      error: (error) => {
+        console.error(error.message);
+        console.error(error.status);
+        const message = ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE;
+        this.notificationService.show(
+          {
+          message, 
+          type: NotificationType.ERROR
+      });
+      }
+    })
+  }
+
+  changePage(page: number){
+    this.page = page;
+    this.getCategories(this.page,this.size,this.isAsc);
+  }
+
+  changeSize(size: number){
+    this.size = size;
+    this.getCategories(this.page,this.size,this.isAsc);
+  }
+
+  changeAsc(isAsc: boolean){
+    this.isAsc = isAsc;
+    this.getCategories(this.page,this.size,this.isAsc);
+  }
   
 
   getErrorMessage(control: AbstractControl | null, fieldName: string) {
