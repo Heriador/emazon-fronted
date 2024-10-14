@@ -1,0 +1,13 @@
+<header class="header">
+    <div class="header__logo">
+        <app-text [type]="TextType.H1" class="poppins-semibold" content="Emazon"></app-text>
+    </div>
+    <div class="header__nav">
+        <div class="header__nav-menu-icon" (click)="openMenu()">
+            <app-icon  class="fa-solid fa-bars" ></app-icon>
+        </div>
+        <div class="header__nav-menu" [class.toggle_menu]="menuOpen">
+            <app-nav></app-nav>
+        </div>
+    </div>
+</header>

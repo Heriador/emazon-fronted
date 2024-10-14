@@ -1,0 +1,25 @@
+@use "styles" as *;
+
+.nav{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    grid-area: nav;
+    margin: 10px 0 0 0;
+
+    app-nav-link{
+        border-bottom: 1px solid $spacer;
+        padding: 1rem 0rem 1rem 1.5rem;
+
+
+    }
+
+    @include desktop{
+        flex-direction: row;
+
+
+        app-nav-link{
+            border-bottom: none;
+        }
+    }
+}

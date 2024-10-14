@@ -1,0 +1,11 @@
+@use "styles" as *;
+
+.divider {
+  width: 93%;
+  height: 0.05rem;
+  margin: 0 auto;
+  border: none;
+  background-color: rgba($spacer, 0.2);
+  margin-bottom: 1rem;
+  font-size: 3rem;
+}

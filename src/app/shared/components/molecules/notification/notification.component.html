@@ -1,0 +1,21 @@
+<article *ngIf="isVisible" [ngClass]="type" [class.fade-out]="!isVisible" class="notification" >
+    <div class="notification__identifier" [ngClass]="type">
+
+    </div>
+    <div class="notification__content" >
+        <div class="notification__content-icon" [ngClass]="type">
+            <app-icon 
+                [ngClass]="
+                    type === 'success' ? 'fa-solid fa-circle-check' :
+                    type === 'error' ? 'fa-solid fa-circle-xmark' :
+                    type === 'warning' ? 'fa-solid fa-circle-exclamation' :
+                    'fa-solid fa-circle-info'
+                "
+            ></app-icon>
+        </div>
+            <app-text [content]="message"  [ngClass]="type"></app-text> 
+    </div>
+    <div class="notification__close" (click)="close()">
+        <app-icon class="fa-solid fa-x close"></app-icon>
+    </div>  
+</article>

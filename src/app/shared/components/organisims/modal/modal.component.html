@@ -1,0 +1,8 @@
+<div class="modal" [class.show]="isVisible">
+    <div class="modal-content">
+        <div (click)="closeModal()" class="close" [ngStyle]="{'width': '15px'}" >
+            <i class="fa-solid fa-x"></i>
+        </div>
+        <ng-content></ng-content>
+    </div>
+</div>

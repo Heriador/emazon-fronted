@@ -1,0 +1,15 @@
+@use "styles" as *;
+
+.nav{
+
+
+    &__link{
+
+        @include poppins-regular;
+
+        color: $white;
+        text-decoration: none;
+        font-size: 1.5rem;
+        gap: 1rem;
+    }
+}

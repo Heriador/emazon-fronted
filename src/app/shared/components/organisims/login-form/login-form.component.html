@@ -1,0 +1,29 @@
+<form class="login-form">
+
+    <app-text [type]="TextType.H2" content="Iniciar sesión"></app-text>
+
+
+    <app-input-field
+        label="emailLabel"
+        inputType="email"
+        id="emailId"
+        name="email"
+        placeholder="emailPlaceholder"
+        class="input"
+    ></app-input-field>
+    <app-input-field
+        label="passwordLabel"
+        inputType="password"
+        id="passwordId"
+        name="password"
+        placeholder="passwordPlaceholder"
+        class="input"
+    ></app-input-field>
+
+    <app-button
+        class="btn btn-main btn-m"
+        text="loginButton"
+        [icon]="true"
+        ></app-button>
+
+</form>

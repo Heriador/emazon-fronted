@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="container__modal">
+        <app-button (click)="openModal()" class="btn btn-main btn-m" text="Crear categoria" ></app-button>
+
+        <app-modal [isVisible]="isModalOpen" (close)="closeModal()">
+            <app-text [type]="TextType.H3" content="Crear categoria"></app-text>
+            <app-divider></app-divider>
+            <form class="container-form" [formGroup]="categoryForm" (ngSubmit)="createCategory()">
+                <div class="container-inputs">
+                    <app-input-field 
+                        label="Nombre categoria"
+                        inputType="text"
+                        id="name"
+                        name="name"
+                        placeholder="Nombre categoria"
+                        class="input"
+                        formControlName="name"
+                        [errorMessage]="categoryNameError"
+                    ></app-input-field>
+                    <app-textarea-field
+                        label="Descripcion"
+                        id="description"
+                        name="description"
+                        placeholder="Descripcion"
+                        class="textarea"
+                        formControlName="description"
+                        [errorMessage]="categoryDescriptionError"
+                    ></app-textarea-field>
+                </div>
+                <div class="container-btn">
+                    <app-button
+                        class="btn btn-main btn-s"
+                        text="Crear"
+                    ></app-button>  
+                </div>
+            </form>
+    
+        </app-modal>
+    </div>
+
+    <app-divider></app-divider>
+    
+    <app-table 
+        [HeadArray]="headArray"
+        [BodyArray]="categories"
+        [totalElements]="totalElements"
+        [totalPages]="totalPages"
+        (pageChange)="changePage($event)"
+        (sizeChange)="changeSize($event)"
+        (isAscChange)="changeAsc($event)"
+    ></app-table>
+
+</div>
