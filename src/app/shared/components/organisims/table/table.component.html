@@ -1,0 +1,59 @@
+<article>
+    <section class="controls">
+        <div class="controls__selector">
+            <app-text [type]="TextType.LABEL" content="Mostrar:" for="itemsPerPage" ></app-text>
+            <select id="itemsPerPage" (change)="changeSize($event)">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>   
+        </div>
+        <div class="controls__selector">
+            <app-text [type]="TextType.LABEL" content="Ordenar por nombre:" ></app-text>
+            <div class="controls__selector-icon" (click)="changeAsc()" (keypress)="changeAsc()">
+                <!-- <app-icon [ngClass]="isAsc ? 'fa-solid fa-arrow-up-a-z' : 'fa-solid fa-arrow-down-z-a'"></app-icon> -->
+                <i 
+                    [ngClass]="isAsc ? 'fa-solid fa-arrow-up-a-z' : 'fa-solid fa-arrow-down-z-a'"
+                ></i>
+            </div>
+        </div>
+    </section>
+
+    <div class="table-container">  
+        <table class="table">
+            <thead>
+                <tr class="table__header">
+                    <th class="table__cell" *ngFor="let header of HeadArray">{{header.name}}</th>
+                </tr>
+            </thead>
+            <ng-template [ngIf]="BodyArray.length === 0" [ngIfElse]="data">
+                <app-text [type]="TextType.H2" content="No hay datos" ></app-text>
+            </ng-template>
+
+            <ng-template #data>
+                <tbody>
+                    <tr class="table__row" *ngFor="let data of BodyArray" >
+                        <td class="table__cell" *ngFor="let head of HeadArray" >
+                            {{data[head.key]}}
+                        </td>
+                    </tr>   
+                </tbody>
+            </ng-template>
+        </table>
+    </div>
+
+    <section class="controls" >
+        <div (click)="previousPage()" class="controls__selector">
+            <app-icon ngClass="fa-solid fa-angles-left" ></app-icon>
+        </div>
+        <div class="controls__selector">
+
+            <app-text [content]="(page+1).toString()"></app-text>
+        </div>
+        <div (click)="nextPage()" class="controls__selector">
+            <app-icon ngClass="fa-solid fa-angles-right" ></app-icon>
+        </div>
+    </section>
+
+</article>
+
