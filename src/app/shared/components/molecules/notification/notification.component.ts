@@ -31,12 +31,18 @@ export class NotificationComponent implements OnInit {
 
       setTimeout(() => {
         this.close();
-      }, 30000);
+      }, 3000);
     })
   }
 
   close(){
-    this.isVisible = false;
+    const notificationElement = document.getElementsByClassName('notification')[0];
+    notificationElement.classList.add('slideOut');
+
+    setTimeout(() => {
+      this.isVisible = false;
+      notificationElement.classList.remove('slideOut');
+    }, 500);
   }
 
 }
