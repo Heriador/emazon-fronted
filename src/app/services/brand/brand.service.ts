@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Brand } from 'src/app/interfaces/brand.interface';
+import { Brand, BrandResponse } from 'src/app/interfaces/brand.interface';
 import { environment } from '../../../environments/environment';
+import { Pagination } from 'src/app/interfaces/paginated.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,4 +30,17 @@ export class BrandService {
 
   }
 
+  getBrands(page: number, size: number, ord: boolean): Observable<Pagination<BrandResponse>>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    })
+
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('ord', ord.toString());
+
+    return this.http.get<Pagination<BrandResponse>>(this.apiUrl, {headers, params});
+  }
+  
 }
