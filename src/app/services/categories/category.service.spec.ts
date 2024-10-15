@@ -2,8 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CategoryService } from './category.service';
 import { HttpClientModule, HttpResponse } from '@angular/common/http';
-import { Category } from 'src/app/interfaces/category.interface';
+import { Category, CategoryResponse } from 'src/app/interfaces/category.interface';
 import { environment } from '../../../environments/environment';
+import { Pagination } from 'src/app/interfaces/paginated.interface';
 
 
 describe('CategoryService', () => {
@@ -45,6 +46,38 @@ describe('CategoryService', () => {
     expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
     expect(req.request.body).toEqual(category);
     req.event(mockResponse);
+  });
+
+  it('should get categories and return the response', () => {
+    // service.getCategories
+    const mockResponse:Pagination<CategoryResponse> = {
+      content: [
+        {
+          id: 1,
+          name: 'Test Category',
+          description: 'Test Description'
+        }
+      ],
+      totalElements: 1,
+      totalPages: 1,
+      pageNumber: 0,
+      pageSize: 5,
+      last: true 
+    }
+
+    service.getCategories(0, 5, true).subscribe(response => {
+      expect(response.content.length).toBe(1);
+      expect(response.totalElements).toBe(1);
+      expect(response.totalPages).toBe(1);
+      expect(response.pageNumber).toBe(0);
+      expect(response.pageSize).toBe(5);
+      expect(response.last).toBe(true);
+    });
+
+    const req = httpMock.expectOne(environment.stock_service_url+"/category/?page=0&size=5&ord=true");
+    expect(req.request.method).toBe('GET');
+    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
+    req.flush(mockResponse);
   });
 
 });

@@ -14,7 +14,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class TextareaFieldComponent implements OnInit, ControlValueAccessor {
+export class TextareaFieldComponent implements ControlValueAccessor {
 
   TextType = TextType;
 
@@ -33,9 +33,6 @@ export class TextareaFieldComponent implements OnInit, ControlValueAccessor {
   onTouched: any = () => {};
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   writeValue(value: any): void {
     this.value = value;
