@@ -16,9 +16,5 @@ export class NavLinkComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  navigate(){
-    this.router.navigate([this.linkUrl]);
-  }
-
 
 }

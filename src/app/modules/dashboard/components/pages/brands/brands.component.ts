@@ -1,10 +1,15 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotificationService } from 'src/app/core/services/notification/notification.service';
-import { BrandService } from 'src/app/services/brand/brand.service';
-import { ERROR_MESSAGES, ERROR_MESSAGES_BY_CODE, FIELD_NAMES, GENERIC_ERROR_MESSAGE, RESPONSE_MESSAGE } from 'src/app/shared/constants/brand-constant';
-import { NotificationType, TextType } from 'src/app/shared/constants/enums';
+import { NotificationService } from '../../../../../core/services/notification/notification.service';
+import { BrandService } from '../../../../../services/brand/brand.service';
+import { 
+  ERROR_MESSAGES, 
+  ERROR_MESSAGES_BY_CODE, 
+  FIELD_NAMES, 
+  GENERIC_ERROR_MESSAGE, 
+  RESPONSE_MESSAGE } from '../../../../../shared/constants/brand-constant';
+import { NotificationType, TextType } from '../../../../../shared/constants/enums';
 
 @Component({
   selector: 'app-brands',

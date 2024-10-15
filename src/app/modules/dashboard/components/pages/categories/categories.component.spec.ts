@@ -4,11 +4,10 @@ import { CategoriesComponent } from './categories.component';
 import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from '../../../../../services/categories/category.service';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
-import { HttpClientModule, HttpErrorResponse, HttpResponse, HttpStatusCode } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Category, CategoryResponse } from 'src/app/interfaces/category.interface';
 import { of, throwError } from 'rxjs';
 import { Pagination } from 'src/app/interfaces/paginated.interface';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ERROR_MESSAGES_BY_CODE, GENERIC_ERROR_MESSAGE, RESPONSE_MESSAGE } from '../../../../../shared/constants/category-constant';
 import { NotificationType } from '../../../../../shared/constants/enums';
 

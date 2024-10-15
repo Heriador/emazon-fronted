@@ -31,7 +31,7 @@ export class NotificationComponent implements OnInit {
 
       setTimeout(() => {
         this.close();
-      }, 300000);
+      }, 3000);
     })
   }
 
