@@ -80,7 +80,7 @@ export class CategoriesComponent implements OnInit {
       error: (error) => {
         console.error(error.message);
         console.error(error.status);
-        const message = ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE;
+        const message = ERROR_MESSAGES_BY_CODE[error.status];
         this.notificationService.show(
           {
           message, 
