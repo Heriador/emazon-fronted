@@ -10,6 +10,8 @@ import {
   GENERIC_ERROR_MESSAGE, 
   RESPONSE_MESSAGE } from '../../../../../shared/constants/brand-constant';
 import { NotificationType, TextType } from '../../../../../shared/constants/enums';
+import { BrandResponse } from 'src/app/interfaces/brand.interface';
+import { Pagination } from 'src/app/interfaces/paginated.interface';
 
 @Component({
   selector: 'app-brands',
@@ -21,6 +23,17 @@ export class BrandsComponent implements OnInit {
   TextType = TextType;
   isModalOpen: boolean = false;
   public brandForm: FormGroup;
+
+  headArray = [
+    {name: 'Nombre', key: 'name'},
+    {name: 'Descripción', key: 'description'}
+  ]
+  page: number = 0;
+  size: number = 5;
+  isAsc: boolean = true;
+  totalElements: number = 0;
+  totalPages: number = 0;
+  brands: BrandResponse[] = [];
 
   constructor(
     private readonly brandServivce: BrandService,
@@ -46,6 +59,24 @@ export class BrandsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getBrands(this.page,this.size,this.isAsc);
+  }
+
+  getBrands(page: number, size: number, isAsc: boolean){
+    this.brandServivce.getBrands(page, size, isAsc)
+      .subscribe({
+        next: (result: Pagination<BrandResponse>) => {
+          this.brands = result.content;
+          this.totalElements = result.totalElements;
+          this.totalPages = result.totalPages;
+        },
+        error: (error) => {
+          this.notificationService.show({
+            message: ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          })
+        }
+      });
   }
 
   getErrorMessage(control: AbstractControl | null, fieldName: string): string {
@@ -99,6 +130,8 @@ export class BrandsComponent implements OnInit {
             type: NotificationType.SUCCESS
           });
 
+          this.brands.push(this.brandForm.value)
+
           this.brandForm.reset({
             name: '',
             description: ''
@@ -131,5 +164,21 @@ export class BrandsComponent implements OnInit {
     this.brandForm.markAsPristine();
     this.brandForm.markAsUntouched();
   }
+
+  changePage(page: number){
+    this.page = page;
+    this.getBrands(this.page,this.size,this.isAsc);
+  }
+
+  changeSize(size: number){
+    this.size = size;
+    this.getBrands(this.page,this.size,this.isAsc);
+  }
+
+  changeAsc(isAsc: boolean){
+    this.isAsc = isAsc;
+    this.getBrands(this.page,this.size,this.isAsc);
+  }
+  
 
 }

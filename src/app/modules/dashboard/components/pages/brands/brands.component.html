@@ -39,4 +39,17 @@
     
         </app-modal>
     </section>
+
+    <app-divider></app-divider>
+
+    <app-table
+        [HeadArray]="headArray"
+        [BodyArray]="brands"
+        [totalElements]="totalElements"
+        [totalPages]="totalPages"
+        (pageChange)="changePage($event)"
+        (sizeChange)="changeSize($event)"
+        (isAscChange)="changeAsc($event)"
+    ></app-table>
+
 </article>
