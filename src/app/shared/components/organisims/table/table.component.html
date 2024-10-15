@@ -27,7 +27,9 @@
                 </tr>
             </thead>
             <ng-template [ngIf]="BodyArray.length === 0" [ngIfElse]="data">
-                <app-text [type]="TextType.H2" content="No hay datos" ></app-text>
+                <div class="no-data">
+                    <app-text [type]="TextType.H2" content="No hay datos" ></app-text>
+                </div>
             </ng-template>
 
             <ng-template #data>

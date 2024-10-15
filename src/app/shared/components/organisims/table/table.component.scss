@@ -70,6 +70,12 @@
             background-color: darken($bg-light-grey,5%);
         }
     }
+
+    .no-data{
+        display: flex;
+        justify-content: center;
+        @extend .body-s;
+    }
     
 }
 

@@ -1,7 +1,9 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
-import { ERROR_MESSAGES, FIELD_NAMES } from 'src/app/shared/constants/category-constant';
+import { BrandService } from 'src/app/services/brand/brand.service';
+import { ERROR_MESSAGES, ERROR_MESSAGES_BY_CODE, FIELD_NAMES, GENERIC_ERROR_MESSAGE, RESPONSE_MESSAGE } from 'src/app/shared/constants/brand-constant';
 import { NotificationType, TextType } from 'src/app/shared/constants/enums';
 
 @Component({
@@ -16,7 +18,7 @@ export class BrandsComponent implements OnInit {
   public brandForm: FormGroup;
 
   constructor(
-
+    private readonly brandServivce: BrandService,
     private readonly notificationService: NotificationService,
     private readonly formBuilder: FormBuilder
   ) { 
@@ -75,10 +77,39 @@ export class BrandsComponent implements OnInit {
       return;
     }
 
-    this.notificationService.show({
-      message: 'Marca creada con éxito',
-      type: NotificationType.SUCCESS
-    });
+    this.brandServivce
+      .createBrand(this.brandForm.value)
+      .subscribe({
+        next: (response) => {
+
+          if(response.status !== HttpStatusCode.Created){
+            return this.notificationService.show({
+              message: RESPONSE_MESSAGE.UNEXPECTED_RESPONSE,
+              type: NotificationType.ERROR
+            })
+          }
+          
+          this.notificationService.show({
+            message: RESPONSE_MESSAGE.BRAND_CREATED, 
+            type: NotificationType.SUCCESS
+          });
+
+          this.brandForm.reset({
+            name: '',
+            description: ''
+          })
+
+          this.brandForm.markAsPristine();
+          this.brandForm.markAsUntouched();
+
+        } ,
+        error: (error) => {
+          this.notificationService.show({
+            message: ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          })
+        }
+      })
 
   }
 
