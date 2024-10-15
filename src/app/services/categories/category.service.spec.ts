@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CategoryService } from './category.service';
-import { HttpClientModule, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Category, CategoryResponse } from 'src/app/interfaces/category.interface';
 import { environment } from '../../../environments/environment';
 import { Pagination } from 'src/app/interfaces/paginated.interface';

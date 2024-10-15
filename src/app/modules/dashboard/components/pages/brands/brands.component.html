@@ -1,0 +1,42 @@
+<article class="container">
+    <section class="container__modal">
+
+        <app-button (click)="openModal()" class="btn btn-main btn-m" text="Crear marca" ></app-button>
+
+
+        <app-modal [isVisible]="isModalOpen" (close)="closeModal()">
+            <app-text [type]="TextType.H3" content="Crear marca"></app-text>
+            <app-divider></app-divider>
+            <form class="container-form" [formGroup]="brandForm" (ngSubmit)="createBrand()">
+                <div class="container-inputs">
+                    <app-input-field 
+                        label="Nombre marca"
+                        inputType="text"
+                        id="name"
+                        name="name"
+                        placeholder="Nombre marca"
+                        class="input"
+                        formControlName="name"
+                        [errorMessage]="brandNameErrorMessage"
+                    ></app-input-field>
+                    <app-textarea-field
+                        label="Descripcion marca"
+                        id="description"
+                        name="description"
+                        placeholder="Descripcion marca"
+                        class="textarea"
+                        formControlName="description"
+                        [errorMessage]="brandDescriptionErrorMessage"
+                    ></app-textarea-field>
+                </div>
+                <div class="container-btn">
+                    <app-button
+                        class="btn btn-main btn-s"
+                        text="Crear"
+                    ></app-button>  
+                </div>
+            </form>
+    
+        </app-modal>
+    </section>
+</article>
