@@ -36,7 +36,9 @@ describe('NotificationComponent', () => {
   });
 
   it('should close notification', () => {
+    jest.useFakeTimers();
     component.close();
+    jest.advanceTimersByTime(500);
     expect(component.isVisible).toBe(false);
   });
 
@@ -57,7 +59,7 @@ describe('NotificationComponent', () => {
   it('should close notification after 30 seconds', () => {
     jest.useFakeTimers();
     component.ngOnInit();
-    jest.advanceTimersByTime(30000);
+    jest.advanceTimersByTime(3500);
     expect(component.isVisible).toBe(false);
   })
 

@@ -1,70 +1,47 @@
 @use "styles" as *;
 
+@keyframes slideIn{
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut{
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
 .notification {
     position: fixed;
-    top: 25%;
-    left: 10%;
-    transform: translateX(-50%, -50%);
-    width: 350px;
-    height: 50px;
-    border: 0.1rem solid $spacer;
-    border-left: none;
-    border-radius: 3px;
-    z-index: 999;
-    background-color: $white;
-    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    top: 7rem;
+    left: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0,0,0,0.1);
+    width: 40rem;
+    height: 6rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    animation: slideIn 0.5s ease-out;
+    background-color: $white;
+    z-index: 999;
 
     @extend .body-xs;
 
-    @include tablet {
-      left: 20%;
-      width: 500px;
-    }
-
-    @include desktop{
-      left: 25%;
-      width: 600px;
-    }
-
-    &__identifier {
-      display: flex;
-      align-items: center;
-      width: 10px;
-      height: inherit;
-      background-color: rgba($purple, 0.6);
-      color: $purple;
-
-      
-    }
-
-    &__content{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1rem 1rem 0rem;
-      
-
-      app-text{
-        background-color: $white !important;
-      }
-
-      &-icon{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 1rem;
-        border-radius: 15px;
-        width: 35px;
-        height: 25px;
-
-        @include tablet{
-          width: 24px;
-        }
-      }
-
+    &__icon{
+      font-size: 1.5rem;
     }
 
     &__close{
@@ -73,31 +50,30 @@
       align-self: center;
     }
 
-    .success {
+    &.success {
       color: $approval;
-      background-color: rgba($approval, 0.5);
+      border-left:0.6rem solid rgba($approval, 0.5) ;
 
     }
-    .error {
+    &.error {
       color: $error;
-      background-color: rgba($error, 0.5) ;
+      border-left:0.6rem solid rgba($error, 0.5) ;
     }
 
-    .info {
+    &.info {
       color: $purple;
-      background-color: rgba($purple, 0.5);
+      border-left:0.6rem solid rgba($purple, 0.5) ;
     }
-    .warning {
+    &.warning {
       color: $attention;
-      background-color: rgba($attention, 0.5);
+      border-left:0.6rem solid rgba($attention, 0.5) ;
     }
 
+    &.slideOut{
+      animation: slideOut 0.5s ease-out;
+    }
     
     
 }
 
-.fade-out {
-  opacity: 0;
-  transform: translateY(20px);
-}
 
