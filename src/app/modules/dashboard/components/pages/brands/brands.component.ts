@@ -52,7 +52,7 @@ export class BrandsComponent implements OnInit {
         '',[
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(100)
+          Validators.maxLength(120)
         ]
       ]
     })
@@ -130,7 +130,8 @@ export class BrandsComponent implements OnInit {
             type: NotificationType.SUCCESS
           });
 
-          this.brands.push(this.brandForm.value)
+          this.brands.unshift(this.brandForm.value)
+          this.brands.pop()
 
           this.brandForm.reset({
             name: '',
