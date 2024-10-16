@@ -8,6 +8,7 @@ import { CategoriesComponent } from 'src/app/modules/dashboard/components/pages/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrandsComponent } from './components/pages/brands/brands.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ItemsComponent } from './components/pages/items/items.component';
 
 
 
@@ -16,7 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DashboardTemplateComponent,
     FooterComponent,
     CategoriesComponent,
-    BrandsComponent
+    BrandsComponent,
+    ItemsComponent
   ],
   imports: [
     CommonModule,
