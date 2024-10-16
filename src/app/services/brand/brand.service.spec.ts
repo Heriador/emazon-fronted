@@ -45,4 +45,33 @@ describe('BrandService', () => {
     req.flush(mockResponse);
   })
 
+  it('should get brands and return the response', () => {
+    const mockResponse = {
+      content: [
+        {
+          id: 1,
+          name: 'Test Brand',
+          description: 'Test Description'
+        }
+      ],
+      totalPages: 1,
+      totalElements: 1,
+      last: true,
+      size: 1,
+      number: 0,
+    }
+
+    service.getBrands(0, 5, true).subscribe(response => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne(environment.stock_service_url+"/brand/?page=0&size=5&ord=true");
+    expect(req.request.method).toBe('GET');
+    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
+    req.flush(mockResponse);
+
+  });
+
+  
+
 });
