@@ -154,32 +154,34 @@ export class CategoriesComponent implements OnInit {
       return;
     }
 
-    console.log("calling service")
-
 
     this.categoryService
       .createCategory(this.categoryForm.value)
       .subscribe({
         next: (response) => {
-          const message =
-            response.status === HttpStatusCode.Created
-              ? RESPONSE_MESSAGE.CATEGORY_CREATED
-              : RESPONSE_MESSAGE.UNEXPECTED_RESPONSE;
 
-          const type = response.status === HttpStatusCode.Created 
-            ? NotificationType.SUCCESS 
-            : NotificationType.ERROR;
-
-          this.notificationService.show({message, type});
-
-          if (response.status === HttpStatusCode.Created) {
-            this.categoryForm.reset({
-              name: '',
-              description: ''
+          if(response.status !== HttpStatusCode.Created){
+            return this.notificationService.show({
+              message: RESPONSE_MESSAGE.UNEXPECTED_RESPONSE,
+              type: NotificationType.ERROR
             })
-            this.categoryForm.markAsPristine();
-            this.categoryForm.markAsUntouched();
           }
+
+          this.notificationService.show({
+            message: RESPONSE_MESSAGE.CATEGORY_CREATED, 
+            type: NotificationType.SUCCESS
+          });
+
+          this.categories.unshift(this.categoryForm.value)
+          this.categories.pop()
+  
+          this.categoryForm.reset({
+            name: '',
+            description: ''
+          })
+
+          this.categoryForm.markAsPristine();
+          this.categoryForm.markAsUntouched();
         },
         error: (error) => {
           console.error(error.message);

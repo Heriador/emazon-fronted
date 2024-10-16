@@ -31,6 +31,7 @@
                     <app-button
                         class="btn btn-main btn-s"
                         text="Crear"
+                        [disabled]="!categoryForm.valid"
                     ></app-button>  
                 </div>
             </form>

@@ -1,7 +1,9 @@
 export const ERROR_MESSAGES = {
     required: (fieldName: string) => `${fieldName} requerido.`,
     minlength: (fieldName: string, error: any) =>
-      `minimo ${error.requiredLength} caracteres.`
+      `minimo ${error.requiredLength} caracteres.`,
+    maxlength: (fieldName: string, error: any) =>
+      `maximo ${error.requiredLength} caracteres.`
   };
   
   export const RESPONSE_MESSAGE = {
