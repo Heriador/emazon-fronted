@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './components/atoms/button/button.component';
-import { IconComponent } from './components/atoms/icon/icon.component';
 import { InputComponent } from './components/atoms/input/input.component';
 import { TextComponent } from './components/atoms/text/text.component';
 import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
@@ -16,12 +15,12 @@ import { TextareaFieldComponent } from './components/molecules/textarea-field/te
 import { TableComponent } from './components/organisims/table/table.component';
 import { TableCellComponent } from './components/atoms/table-cell/table-cell.component';
 import { TableHeadComponent } from './components/atoms/table-head/table-head.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 let components = [
   DividerComponent,
   ButtonComponent,
-  IconComponent,
   InputComponent,
   TextComponent,
   TextAreaComponent,
@@ -41,7 +40,8 @@ let components = [
 @NgModule({
   declarations: components,
   imports: [
-    CommonModule
+    CommonModule,
+    FontAwesomeModule
   ],
   exports: components
 })

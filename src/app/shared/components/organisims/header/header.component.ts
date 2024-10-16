@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import { TextType } from '../../../../shared/constants/enums';
 export class HeaderComponent implements OnInit {
 
   TextType = TextType;
+  faBars = faBars;
 
   menuOpen: boolean = false;
 

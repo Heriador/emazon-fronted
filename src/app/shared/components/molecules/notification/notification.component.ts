@@ -1,16 +1,29 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IconType, NotificationType, TextType } from '../../../constants/enums';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
+import { 
+  faCircleCheck, 
+  faCircleXmark,
+  faCircleExclamation,
+  faCircleInfo,
+  faX
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent implements OnInit {
 
   TextType = TextType;
   NotificationType = NotificationType;
+
+  circleCheck = faCircleCheck;
+  circleXmark = faCircleXmark;
+  circleExclamation = faCircleExclamation;
+  circleInfo = faCircleInfo;
+  xIcon = faX;
 
   message: string = '';
   isVisible: boolean = false;

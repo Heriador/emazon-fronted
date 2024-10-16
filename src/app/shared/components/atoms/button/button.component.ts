@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-button',
@@ -9,7 +10,7 @@ export class ButtonComponent implements OnInit {
 
   @Input() class: string = '';
   @Input() text: string = '';
-  @Input() icon: boolean = false;
+  @Input() icon?: IconDefinition;
   @Input() disabled: boolean = false;
 
 
@@ -19,4 +20,5 @@ export class ButtonComponent implements OnInit {
   ngOnInit() {
   }
 
-}
+}import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+

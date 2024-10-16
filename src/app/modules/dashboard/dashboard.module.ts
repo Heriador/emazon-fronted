@@ -7,6 +7,7 @@ import { FooterComponent } from 'src/app/shared/components/organisims/footer/foo
 import { CategoriesComponent } from 'src/app/modules/dashboard/components/pages/categories/categories.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrandsComponent } from './components/pages/brands/brands.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -22,7 +23,8 @@ import { BrandsComponent } from './components/pages/brands/brands.component';
     DashboardRoutingModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ]
 })
 export class DashboardModule { }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
+import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
@@ -9,6 +10,10 @@ import { TextType } from '../../../../shared/constants/enums';
 export class TableComponent implements OnInit {
 
   TextType = TextType;
+  faArrowDownAZ = faArrowDownAZ;
+  faArrowUpAZ = faArrowUpAZ;
+  faAnglesLeft = faAnglesLeft;
+  faAnglesRight = faAnglesRight;
 
   @Input() HeadArray: any[] = [];
   @Input() BodyArray: any[] = [];
