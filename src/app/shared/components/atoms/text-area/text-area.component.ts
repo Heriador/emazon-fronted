@@ -15,6 +15,7 @@ export class TextAreaComponent implements OnInit {
   @Input() class: string = '';
   @Input() disabled: boolean = false;
   @Input() error: boolean = false;
+  @Input() value: string = '';
 
   ngOnInit(): void {
   }

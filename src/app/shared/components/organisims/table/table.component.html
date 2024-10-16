@@ -11,10 +11,7 @@
         <div class="controls__selector">
             <app-text [type]="TextType.LABEL" content="Ordenar por nombre:" ></app-text>
             <div class="controls__selector-icon" (click)="changeAsc()" (keypress)="changeAsc()">
-                <!-- <app-icon [ngClass]="isAsc ? 'fa-solid fa-arrow-up-a-z' : 'fa-solid fa-arrow-down-z-a'"></app-icon> -->
-                <i 
-                    [ngClass]="isAsc ? 'fa-solid fa-arrow-up-a-z' : 'fa-solid fa-arrow-down-z-a'"
-                ></i>
+                <fa-icon [icon]="isAsc ? faArrowDownAZ : faArrowUpAZ"></fa-icon>
             </div>
         </div>
     </section>
@@ -45,15 +42,15 @@
     </div>
 
     <section class="controls" >
-        <div (click)="previousPage()" class="controls__selector">
-            <app-icon ngClass="fa-solid fa-angles-left" ></app-icon>
+        <div (click)="previousPage()" class="controls__selector" *ngIf="page !== 0">
+            <fa-icon class="controls__selector-icon" [icon]="faAnglesLeft"></fa-icon>
         </div>
         <div class="controls__selector">
 
             <app-text [content]="(page+1).toString()"></app-text>
         </div>
-        <div (click)="nextPage()" class="controls__selector">
-            <app-icon ngClass="fa-solid fa-angles-right" ></app-icon>
+        <div (click)="nextPage()" class="controls__selector" *ngIf="(page+1) < totalPages">
+            <fa-icon class="controls__selector-icon" [icon]="faAnglesRight"></fa-icon>
         </div>
     </section>
 

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
@@ -9,6 +10,8 @@ export class ModalComponent implements OnInit {
 
   @Input() isVisible: boolean = false;
   @Output() close = new EventEmitter<void>();
+
+  xIcon = faX;
 
   constructor() { }
 

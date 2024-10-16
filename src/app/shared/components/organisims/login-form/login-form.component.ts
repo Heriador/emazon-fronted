@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TextType } from '../../../constants/enums';
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login-form',
@@ -9,6 +10,7 @@ import { TextType } from '../../../constants/enums';
 export class LoginFormComponent implements OnInit {
 
   TextType = TextType;
+  icon = faRightToBracket;
 
   constructor() { }
 

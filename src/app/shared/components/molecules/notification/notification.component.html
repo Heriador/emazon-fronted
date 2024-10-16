@@ -1,18 +1,15 @@
 <article *ngIf="isVisible" class="notification" [ngClass]="type"  >
-    <!-- <div class="notification__content" > -->
         <div class="notification__icon">
-            <app-icon 
-                [ngClass]="
-                    type === 'success' ? 'fa-solid fa-circle-check' :
-                    type === 'error' ? 'fa-solid fa-circle-xmark' :
-                    type === 'warning' ? 'fa-solid fa-circle-exclamation' :
-                    'fa-solid fa-circle-info'
+            <fa-icon
+                [icon] = "type === 'success' ? circleCheck :
+                    type === 'error' ? circleXmark :
+                    type === 'warning' ? circleExclamation :
+                    circleInfo
                 "
-            ></app-icon>
+            ></fa-icon>
         </div>
             <app-text [content]="message"  [ngClass]="type"></app-text> 
-    <!-- </div> -->
     <div class="notification__close" (click)="close()">
-        <app-icon class="fa-solid fa-x close"></app-icon>
+        <fa-icon [icon]="xIcon" class="close" ></fa-icon>
     </div>  
 </article>
