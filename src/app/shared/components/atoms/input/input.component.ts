@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -17,9 +16,15 @@ export class InputComponent implements OnInit {
   @Input() disabled: boolean = false;
   @Input() error: boolean = false;
 
+  @Output() focus = new EventEmitter<FocusEvent>();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onFocus(event: FocusEvent) {
+    this.focus.emit(event);
   }
 
 }

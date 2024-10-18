@@ -1,0 +1,124 @@
+@use "styles" as *;
+
+.multi-select-dropdown {
+    position: relative;
+    width: 100%;
+
+    .input-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 5px;
+        border: 0.15rem solid $border;
+        border-radius: 4px;
+        background-color: $white;
+        max-width: 21rem;
+
+        &.error{
+          border-color: $error;
+        }  
+
+        &.focused{
+          border-color: $purple;
+        }
+
+        app-input .input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .selected-item {
+            display: flex;
+            align-items: center;
+            margin: 2px;
+            padding: 8px;
+            background-color: $bg-light-grey;
+            border-radius: 16px;
+            font-size: 14px;
+           
+          }
+    }
+
+    .error-message{
+      margin-left: 5.6rem;
+      
+  }
+
+    .dropdown-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 90%;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: $white;
+        border: 0.2rem solid $purple;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        &.error{
+          border-color: $error;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f0f8ff;
+            }
+
+            &.disabled{
+                color: $disabled;
+                cursor: not-allowed;
+            }
+
+            .checkbox {
+                width: 18px;
+                height: 18px;
+                border: 2px solid #ccc;
+                border-radius: 3px;
+                margin-right: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                &.checked {
+                    background-color: #4a90e2;
+                    border-color: #4a90e2;
+                }
+
+                .checkmark {
+                    color: white;
+                    font-size: 14px;
+                }
+
+            }
+        }
+
+      }
+    
+
+}
+  
+.error{
+  border-color: $error;
+}
+  
+  .selected-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #4a90e2;
+    margin-left: 5px;
+  }
+  
+ 
+  

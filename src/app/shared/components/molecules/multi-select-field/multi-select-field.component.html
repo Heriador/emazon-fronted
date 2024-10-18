@@ -1,0 +1,56 @@
+<div class="multi-select-dropdown">
+    <app-text
+        [content]="label"
+        [for]="id"
+        [type]="TextType.LABEL"
+    ></app-text>
+    <div 
+        class="input-container"
+        [id]="id" 
+        [class.error]="!!errorMessage"
+        [class.focused]="isDropdownVisible"
+    
+    >
+        <ng-container *ngFor="let item of items">
+            <div class="selected-item" *ngIf="item.selected">
+                {{ item.data.name}}
+                <app-button
+                    class="btn-text btn-s"
+                    (click)="removeItem(item, $event)"
+                    text="x"
+                >
+                </app-button>
+            </div>
+        </ng-container>
+
+        <app-input
+            type="text"
+            (focus)="showDropdown()"
+            (input)="filterItems($event)"
+            [placeholder]="isDropdownVisible ? '' : 'Select items...'"
+        ></app-input>
+
+    </div>
+    <div class="error-message" *ngIf="errorMessage && !isDropdownVisible">
+        <app-text
+            [content]="errorMessage"
+            class="error body-xs"
+        ></app-text>
+    </div>
+
+    <div class="dropdown-list" *ngIf="isDropdownVisible" [class.error]="!!errorMessage">
+        <ng-container *ngFor="let item of filteredItems">
+            <div
+                class="dropdown-item"
+                (click)="toggleItem(item, $event)"
+                [class.disabled]="!item.selected && selectedItems.length === maxSelection"
+            >
+                <span class="checkbox" [class.checked]="item.selected" >
+                    <span class="checkmark" *ngIf="item.selected" >✔</span>
+                </span>
+                {{ item.data.name }}
+            </div>
+        </ng-container>
+    </div>
+
+</div>

@@ -16,6 +16,9 @@ import { TableComponent } from './components/organisims/table/table.component';
 import { TableCellComponent } from './components/atoms/table-cell/table-cell.component';
 import { TableHeadComponent } from './components/atoms/table-head/table-head.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SelectFieldComponent } from './components/molecules/select-field/select-field.component';
+import { SelectComponent } from './components/atoms/select/select.component';
+import { MultiSelectFieldComponent } from './components/molecules/multi-select-field/multi-select-field.component';
 
 
 let components = [
@@ -24,9 +27,12 @@ let components = [
   InputComponent,
   TextComponent,
   TextAreaComponent,
+  SelectComponent,
   CheckboxFieldComponent,
   InputFieldComponent,
   TextareaFieldComponent,
+  SelectFieldComponent,
+  MultiSelectFieldComponent,
   NavLinkComponent,
   NavComponent,
   HeaderComponent,

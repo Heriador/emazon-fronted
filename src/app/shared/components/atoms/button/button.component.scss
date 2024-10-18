@@ -20,6 +20,23 @@
         padding: 4px 12px;
     }
 
+    &-text{
+        border: none;
+        padding: 0;
+        color: $purple;
+        background-color: inherit;
+
+        &:hover{
+            color: $light-purple
+        }
+
+        &:disabled{
+            color: $disabled;
+            cursor: not-allowed;
+        }
+
+    }
+
     &-main{
         background-color: $purple;
         color: $white;
