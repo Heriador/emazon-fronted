@@ -1,0 +1,89 @@
+<article class="container">
+    <section class="container__modal">
+
+        <app-button (click)="openModal()" class="btn btn-main btn-m" text="Crear articulo" ></app-button>
+        <app-modal [isVisible]="isModalOpen" (close)="closeModal()">
+            <app-text [type]="TextType.H3" content="Crear articulo"></app-text>
+            <app-divider></app-divider>
+            <form class="container-form" [formGroup]="itemForm" (ngSubmit)="createItem()">
+                <div class="container-inputs">
+                    <app-input-field 
+                        label="Nombre articulo"
+                        inputType="text"
+                        id="name"
+                        name="name"
+                        placeholder="Nombre articulo"
+                        class="input"
+                        formControlName="name"
+                        [errorMessage]="itemNameErrorMessage"
+                    ></app-input-field>
+                    <app-textarea-field
+                        label="Descripcion articulo"
+                        id="description"
+                        name="description"
+                        placeholder="Descripcion articulo"
+                        class="textarea"
+                        formControlName="description"
+                        [errorMessage]="itemDescriptionErrorMessage"
+                    ></app-textarea-field>
+                    <app-input-field 
+                        label="Precio articulo"
+                        inputType="number"
+                        id="price"
+                        name="price"
+                        placeholder="Precio articulo"
+                        class="input"
+                        formControlName="price"
+                        [errorMessage]="itemPriceErrorMessage"
+                    ></app-input-field>
+                    <app-input-field 
+                        label="Cantidad articulo"
+                        inputType="number"
+                        id="stock"
+                        name="stock"
+                        placeholder="Cantidad articulo"
+                        class="input"
+                        formControlName="stock"
+                        [errorMessage]="itemStockErrorMessage"
+                    ></app-input-field>
+                    <app-select-field
+                        label="Marca articulo"
+                        id="brand"
+                        name="brand"
+                        class="selector"
+                        [options]="brands"
+                        [multiple]="false"
+                        formControlName="brand"
+                        [errorMessage]="itemBrandErrorMessage"
+                    ></app-select-field>
+                    <!-- <app-selector-field
+                        label="Categoria articulo"
+                        id="category"
+                        name="category"
+                        class="selector"
+                        [options]="categories"
+                        [multiple]="true"
+                        formControlName="categories"
+                        [errorMessage]="itemCategoriesErrorMessage"
+                    ></app-selector-field> -->
+                    <app-multi-select-field
+                        label="Categorias articulo"
+                        id="categories"
+                        [items]="categories"
+                        maxSelectionsReach="3"
+                        [errorMessage]="itemCategoriesErrorMessage"
+                        (selectionChange)="onSelectionChange($event)"
+                    ></app-multi-select-field>
+                </div>
+                <div class="container-btn">
+                    <app-button
+                        class="btn btn-main btn-s"
+                        text="Crear"
+                        [disabled]="!itemForm.valid"
+                    ></app-button>  
+                </div>
+            </form>
+    
+        </app-modal>
+    </section>
+</article>

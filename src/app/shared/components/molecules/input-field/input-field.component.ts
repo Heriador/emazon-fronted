@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -46,8 +46,6 @@ export class InputFieldComponent implements ControlValueAccessor {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
-
-  
 
   onInput(event: Event){
     const input = event.target as HTMLInputElement;
