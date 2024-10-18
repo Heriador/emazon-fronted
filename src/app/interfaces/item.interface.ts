@@ -6,6 +6,6 @@ export interface Item {
     description: string;
     price: number;
     stock: number;
-    brand: Brand;
-    categories: Category[];
+    brandId: number;
+    categories: number[];
 }

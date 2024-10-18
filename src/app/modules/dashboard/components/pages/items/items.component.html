@@ -46,11 +46,40 @@
                         formControlName="stock"
                         [errorMessage]="itemStockErrorMessage"
                     ></app-input-field>
+                    <app-select-field
+                        label="Marca articulo"
+                        id="brand"
+                        name="brand"
+                        class="selector"
+                        [options]="brands"
+                        [multiple]="false"
+                        formControlName="brand"
+                        [errorMessage]="itemBrandErrorMessage"
+                    ></app-select-field>
+                    <!-- <app-selector-field
+                        label="Categoria articulo"
+                        id="category"
+                        name="category"
+                        class="selector"
+                        [options]="categories"
+                        [multiple]="true"
+                        formControlName="categories"
+                        [errorMessage]="itemCategoriesErrorMessage"
+                    ></app-selector-field> -->
+                    <app-multi-select-field
+                        label="Categorias articulo"
+                        id="categories"
+                        [items]="categories"
+                        maxSelectionsReach="3"
+                        [errorMessage]="itemCategoriesErrorMessage"
+                        (selectionChange)="onSelectionChange($event)"
+                    ></app-multi-select-field>
                 </div>
                 <div class="container-btn">
                     <app-button
                         class="btn btn-main btn-s"
                         text="Crear"
+                        [disabled]="!itemForm.valid"
                     ></app-button>  
                 </div>
             </form>
