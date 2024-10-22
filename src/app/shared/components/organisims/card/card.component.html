@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="card">
+        <img src="assets/images/placeholder.webp" class="card-image"  alt="placeholder" >
+        <div class="card-header">
+        <app-text [type]="TextType.H4" [content]="title"></app-text>
+        </div>
+        <div class="card-body">
+            <app-text [type]="TextType.P" [content]="price" ></app-text>
+            <ng-template [ngIf]="description.length > 50 && !showMore" [ngIfElse]="fullinfo" >
+                <app-text [type]="TextType.P" [content]="description.substring(0,50) + '...'"></app-text>
+                <app-button (click)="togleShowMore()" [text]="'Ver más'" class="btn-text btn-s" ></app-button>
+            </ng-template>
+
+            <ng-template #fullinfo>
+                <app-text [type]="TextType.P" [content]="description"></app-text>
+                <p class="body-m">
+                    <strong>Marca:</strong> {{ brand }}
+                </p>
+                <p class="body-m">
+                    <strong>Categorias:</strong> {{ categories.join(', ') }}
+                </p>
+                <app-button *ngIf="description.length > 50" (click)="togleShowMore()" [text]="'Ver menos'" class="btn-text btn-s" ></app-button>
+            </ng-template>
+            
+        </div>
+        <div class="card-footer">
+            <div class="card-footer__selectors">
+                <app-button 
+                    [icon]="faMinus"
+                    class="btn-main btn-s"
+                    (click)="decreaseQuantity()"
+                ></app-button>
+                <app-text
+                    [type]="TextType.SPAN"
+                    [content]="quantity.toString()"
+                ></app-text>
+                <app-button 
+                    [icon]="faPlus"
+                    class="btn-main btn-s"
+                    (click)="increaseQuantity()"
+                ></app-button>
+            </div>
+            <app-button  [text]="'añadir a carrito'" class="btn-main btn-s" ></app-button>
+        </div>
+    </div>
+</div>
