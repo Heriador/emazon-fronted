@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TextType } from 'src/app/shared/constants/enums';
+import { TextType } from '../../../constants/enums';
 
 @Component({
   selector: 'app-select-field',
@@ -42,7 +42,7 @@ export class SelectFieldComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 

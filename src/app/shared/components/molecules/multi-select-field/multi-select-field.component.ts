@@ -1,7 +1,8 @@
-import { Component, ElementRef, EventEmitter, HostListener, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, Input, OnInit } from '@angular/core';
 import { BrandResponse } from 'src/app/interfaces/brand.interface';
 import { CategoryResponse } from 'src/app/interfaces/category.interface';
-import { TextType } from 'src/app/shared/constants/enums';
+import { TextType } from '../../../../shared/constants/enums';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface SelectItem<T> { 
   selected: boolean;
@@ -11,9 +12,16 @@ export interface SelectItem<T> {
 @Component({
   selector: 'app-multi-select-field',
   templateUrl: './multi-select-field.component.html',
-  styleUrls: ['./multi-select-field.component.scss']
+  styleUrls: ['./multi-select-field.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: MultiSelectFieldComponent,
+      multi: true
+    }
+  ]
 })
-export class MultiSelectFieldComponent<T> implements OnInit {
+export class MultiSelectFieldComponent<T> implements OnInit, ControlValueAccessor {
 
   TextType = TextType;
 
@@ -22,17 +30,32 @@ export class MultiSelectFieldComponent<T> implements OnInit {
   @Input() errorMessage: string = '';
   @Input() items: SelectItem<CategoryResponse | BrandResponse>[] = [];
   @Input() maxSelection: number = 3;
-  @Output() selectionChange = new EventEmitter<SelectItem<CategoryResponse | BrandResponse>[]>();
 
-  private elementRef = inject(ElementRef);
+  private readonly elementRef = inject(ElementRef);
   isDropdownVisible = false;
   selectedItems: SelectItem<CategoryResponse | BrandResponse>[] = [];
   filteredItems: SelectItem<CategoryResponse | BrandResponse>[] = this.items;
+
+  onChange = (value: any) => {};
+  onTouched = () => {};
 
   constructor() { }
 
   ngOnInit(): void {
     this.filteredItems = this.items;
+  }
+
+  writeValue(value: SelectItem<CategoryResponse | BrandResponse>[]): void {
+    this.selectedItems = value;
+    console.log(this.selectedItems);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
   @HostListener('document:click', ['$event'])
@@ -54,14 +77,14 @@ export class MultiSelectFieldComponent<T> implements OnInit {
     }
     item.selected = !item.selected;
     this.selectedItems = this.items.filter(item => item.selected);
-    this.selectionChange.emit(this.selectedItems);
+    this.onChange(this.selectedItems.map(item => item.data.id));
   }
 
   removeItem(item: SelectItem<CategoryResponse | BrandResponse>, event: MouseEvent) {
     event.stopPropagation();
     item.selected = false;
     this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item);
-    this.selectionChange.emit(this.selectedItems);
+    this.onChange(this.selectedItems.map(item => item.data.id));
   }
 
   showDropdown() {

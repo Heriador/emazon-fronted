@@ -2,9 +2,16 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function arrayMinLengthValidator(minLength: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    if (Array.isArray(control.value) && control.value.length >= minLength) {
-      return null; // No error
+    
+    const value = control.value;
+
+    if (!Array.isArray(value)) {
+
+      return { arrayMinLength: { requiredLength: minLength, actualLength: 0 } };
+
     }
-    return { arrayMinLength: { requiredLength: minLength, actualLength: control.value.length } };
-  };
+
+    return value.length >= minLength ? null : { arrayMinLength: { requiredLength: minLength, actualLength: value.length } };
+
+  }; 
 }

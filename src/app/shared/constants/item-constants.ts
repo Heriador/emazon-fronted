@@ -38,7 +38,7 @@ export const ERROR_MESSAGES = {
     ITEM_NAME: ['name', 'nombre'],
     ITEM_DESCRIPTION: ['description', 'descripción'],
     ITEM_PRICE: ['price', 'precio'],
-    ITEM_BRAND: ['brand', 'marca'],
+    ITEM_BRAND: ['brandId', 'marca'],
     ITEM_STOCK: ['stock', 'cantidad'],
     ITEM_CATEGORIES: ['categories', 'categorias'],
   } as const;

@@ -53,26 +53,16 @@
                         class="selector"
                         [options]="brands"
                         [multiple]="false"
-                        formControlName="brand"
+                        formControlName="brandId"
                         [errorMessage]="itemBrandErrorMessage"
                     ></app-select-field>
-                    <!-- <app-selector-field
-                        label="Categoria articulo"
-                        id="category"
-                        name="category"
-                        class="selector"
-                        [options]="categories"
-                        [multiple]="true"
-                        formControlName="categories"
-                        [errorMessage]="itemCategoriesErrorMessage"
-                    ></app-selector-field> -->
                     <app-multi-select-field
                         label="Categorias articulo"
                         id="categories"
                         [items]="categories"
                         maxSelectionsReach="3"
+                        formControlName="categories"
                         [errorMessage]="itemCategoriesErrorMessage"
-                        (selectionChange)="onSelectionChange($event)"
                     ></app-multi-select-field>
                 </div>
                 <div class="container-btn">

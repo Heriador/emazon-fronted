@@ -4,7 +4,7 @@ export const ERROR_MESSAGES = {
       `minimo ${error.requiredLength} caracteres.`,
     maxlength: (fieldName: string, error: any) =>
       `maximo ${error.requiredLength} caracteres.`
-  };
+  } as const;
   
   export const RESPONSE_MESSAGE = {
     CATEGORY_CREATED: 'Categoria creada con éxito',

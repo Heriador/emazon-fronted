@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InputComponent } from './input.component';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -21,5 +19,14 @@ describe('InputComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit event on focus event', () => {
+    const event = new FocusEvent('focus');
+    jest.spyOn(component.focus, 'emit');
+
+    component.onFocus(event);
+
+    expect(component.focus.emit).toHaveBeenCalledWith
   });
 });
