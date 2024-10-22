@@ -1,5 +1,3 @@
-import { Brand } from "./brand.interface";
-import { Category } from "./category.interface";
 
 export interface Item {
     name: string;

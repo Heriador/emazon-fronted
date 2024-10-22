@@ -1,17 +1,33 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotificationService } from 'src/app/core/services/notification/notification.service';
-import { BrandResponse } from 'src/app/interfaces/brand.interface';
-import { CategoryResponse } from 'src/app/interfaces/category.interface';
-import { BrandService } from 'src/app/services/brand/brand.service';
-import { CategoryService } from 'src/app/services/categories/category.service';
-import { ItemsService } from 'src/app/services/items/items.service';
-import { SelectItem } from 'src/app/shared/components/molecules/multi-select-field/multi-select-field.component';
-import { ERROR_MESSAGES } from 'src/app/shared/constants/category-constant';
-import { NotificationType, TextType } from 'src/app/shared/constants/enums';
-import { ERROR_MESSAGES_BY_CODE, FIELD_NAMES, GENERIC_ERROR_MESSAGE, RESPONSE_MESSAGE } from 'src/app/shared/constants/item-constants';
-import { arrayMinLengthValidator } from 'src/app/shared/utils/custom-validators';
+import { 
+  AbstractControl, 
+  FormBuilder, 
+  FormGroup, 
+  Validators 
+} from '@angular/forms';
+import { NotificationService } from '../../../../../core/services/notification/notification.service';
+import { BrandResponse } from '../../../../../interfaces/brand.interface';
+import { CategoryResponse } from '../../../../../interfaces/category.interface';
+import { BrandService } from '../../../../../services/brand/brand.service';
+import { CategoryService } from '../../../../../services/categories/category.service';
+import { ItemsService } from '../../../../../services/items/items.service';
+import { SelectItem } from '../../../../../shared/components/molecules/multi-select-field/multi-select-field.component';
+import { NotificationType, TextType } from '../../../../../shared/constants/enums';
+import { 
+  ERROR_MESSAGES_BY_CODE, 
+  ERROR_MESSAGES,
+  FIELD_NAMES, 
+  GENERIC_ERROR_MESSAGE, 
+  RESPONSE_MESSAGE 
+} from '../../../../../shared/constants/item-constants';
+import {
+  ERROR_MESSAGES_BY_CODE as CATEGORY_ERROR_MESSAGES_BY_CODE,
+} from '../../../../../shared/constants/category-constant';
+import {
+  ERROR_MESSAGES_BY_CODE as BRAND_ERROR_MESSAGES_BY_CODE,
+} from '../../../../../shared/constants/brand-constant';
+import { arrayMinLengthValidator } from '../../../../../shared/utils/custom-validators';
 
 @Component({
   selector: 'app-items',
@@ -60,7 +76,7 @@ export class ItemsComponent implements OnInit {
           Validators.min(1)
         ]
       ],
-      brand: [
+      brandId: [
         '',[
           Validators.required,
           Validators.min(1)
@@ -72,7 +88,7 @@ export class ItemsComponent implements OnInit {
           arrayMinLengthValidator(1),
         ]
       ]
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -87,10 +103,7 @@ export class ItemsComponent implements OnInit {
     }
 
     this.itemService
-      .createItem({
-        ...this.itemForm.value,
-        brandId: this.itemForm.get(FIELD_NAMES.ITEM_BRAND[0])?.value
-      })
+      .createItem(this.itemForm.value)
       .subscribe({
         next: (response) => {
           if(response.status !== HttpStatusCode.Created){
@@ -105,17 +118,7 @@ export class ItemsComponent implements OnInit {
             type: NotificationType.SUCCESS
           })
 
-          this.itemForm.reset({
-            name: '',
-            description: '',
-            price: '',
-            stock: '',
-            brand: '',
-            categories: []
-          });
-          this.itemForm.markAsPristine();
-          this.itemForm.markAsUntouched();
-          this.isModalOpen = false;
+          this.closeModal();
         },
         error: (error) => {
           this.notificationService.show({
@@ -132,6 +135,12 @@ export class ItemsComponent implements OnInit {
       .subscribe({
         next: (result) => {
           this.brands = result.content;
+        },
+        error: (error) => {
+          this.notificationService.show({
+            message: BRAND_ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          });
         }
       });
   }
@@ -144,13 +153,14 @@ export class ItemsComponent implements OnInit {
             data: category,
             selected: false
           }));
+        },
+        error: (error) => {
+          this.notificationService.show({
+            message: CATEGORY_ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          });
         }
       });
-  }
-
-  onSelectionChange(categories: SelectItem<CategoryResponse>[]){
-    this.itemCategories?.markAsTouched();
-    this.itemCategories?.setValue(categories.map(category => category.data.id));
   }
 
   getErrorMessage(control: AbstractControl | null, fieldName: string): string{
@@ -225,7 +235,7 @@ export class ItemsComponent implements OnInit {
       description: '',
       price: '',
       stock: '',
-      brand: '',
+      brandId: null,
       categories: []
     });
     this.itemForm.markAsPristine();

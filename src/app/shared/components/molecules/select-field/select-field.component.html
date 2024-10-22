@@ -9,6 +9,7 @@
         [selected]="selected"
         (change)="onSelected($event)"
         [multiple]="multiple"
+        data-test="select"
     ></app-select>
     <div class="error-message" *ngIf="errorMessage">
         <app-text [content]="errorMessage" class="error body-xs"></app-text>
