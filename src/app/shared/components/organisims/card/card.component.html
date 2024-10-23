@@ -28,15 +28,17 @@
                 <app-button 
                     [icon]="faMinus"
                     class="btn-main btn-s"
+                    [disabled]="quantity === 1 || stock === 0"
                     (click)="decreaseQuantity()"
                 ></app-button>
                 <app-text
                     [type]="TextType.SPAN"
-                    [content]="quantity.toString()"
+                    [content]="stock !== 0 ? quantity.toString() : '0'"
                 ></app-text>
                 <app-button 
                     [icon]="faPlus"
                     class="btn-main btn-s"
+                    [disabled]="quantity === stock || stock === 0"
                     (click)="increaseQuantity()"
                 ></app-button>
             </div>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TextType } from 'src/app/shared/constants/enums';
+import { TextType } from '../../../../shared/constants/enums';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-card',
@@ -28,10 +28,6 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getMarca(): string{
-    return `<strong>Marca:</strong> ${this.brand}`
-  }
-
   togleShowMore(){
     this.showMore = !this.showMore;
   }
@@ -39,13 +35,11 @@ export class CardComponent implements OnInit {
   increaseQuantity(){
     if(this.quantity === this.stock) return;
     this.quantity++;
-    this.selectedQuantity.emit(this.quantity);
   }
 
   decreaseQuantity(){
     if(this.quantity > 1){
       this.quantity--;
-      this.selectedQuantity.emit(this.quantity);
     }
   }
 

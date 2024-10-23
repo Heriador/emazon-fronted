@@ -47,7 +47,6 @@ export class MultiSelectFieldComponent<T> implements OnInit, ControlValueAccesso
 
   writeValue(value: SelectItem<CategoryResponse | BrandResponse>[]): void {
     this.selectedItems = value;
-    console.log(this.selectedItems);
   }
 
   registerOnChange(fn: any): void {

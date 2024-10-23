@@ -1,10 +1,12 @@
-<div class="selector-field">
+<div class="selector-field" [class.row]="row" [ngClass]="{'align-items-center': !!row}">
     <app-text [content]="label" [for]="id" [type]="TextType.LABEL"></app-text>
     <app-select
         [id]="id" 
         [name]="name"
         [class]="class" 
         [options]="options"
+        [valueParam]="valueParam"
+        [labelParam]="labelParam"
         [error]="!!errorMessage" 
         [selected]="selected"
         (change)="onSelected($event)"

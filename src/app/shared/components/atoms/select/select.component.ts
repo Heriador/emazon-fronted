@@ -10,6 +10,8 @@ export class SelectComponent implements OnInit {
   @Input() id: string = '';
   @Input() placeholder = '';
   @Input() options: any[] = [];
+  @Input() valueParam = '';
+  @Input() labelParam = '';
   @Input() name = '';
   @Input() selected: any = '';
   @Input() disabled: boolean = false;

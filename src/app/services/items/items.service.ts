@@ -36,9 +36,10 @@ export class ItemsService {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
-      .set('sortParam', sortParam)
-      .set('isAsc', isAsc.toString());
+      .set('sortBy', sortParam)
+      .set('ord', isAsc.toString());
 
+    console.log(params.toString());
 
     return this.http.get<Pagination<ItemResponse>>(this.apiUrl, {headers, params});
   }

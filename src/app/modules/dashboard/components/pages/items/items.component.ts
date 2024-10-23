@@ -28,6 +28,9 @@ import {
   ERROR_MESSAGES_BY_CODE as BRAND_ERROR_MESSAGES_BY_CODE,
 } from '../../../../../shared/constants/brand-constant';
 import { arrayMinLengthValidator } from '../../../../../shared/utils/custom-validators';
+import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { ItemResponse } from 'src/app/interfaces/item.interface';
+import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-items',
@@ -38,9 +41,27 @@ export class ItemsComponent implements OnInit {
 
   TextType = TextType;
   isModalOpen: boolean = false;
+  faArrowDownAZ = faArrowDownAZ;
+  faArrowUpAZ = faArrowUpAZ;
+  faAnglesLeft = faAnglesLeft;
+  faAnglesRight = faAnglesRight;
+
   public itemForm: FormGroup;
   public brands: BrandResponse[] = [];
   public categories: SelectItem<CategoryResponse>[] = [];
+  public items: Pagination<ItemResponse> = {
+    content: [],
+    totalElements: 0,
+    totalPages: 0,
+    pageSize: 0,
+    pageNumber: 0,
+    last: true,
+  };
+
+  size: number = 5;
+  page: number = 0;
+  isAsc: boolean = true;
+  sortParam: string = 'name';
 
   constructor(
     private readonly itemService: ItemsService,
@@ -92,6 +113,7 @@ export class ItemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getItems(this.page, this.size, this.sortParam, this.isAsc);
     this.getBrands();
     this.getCategories();
   }
@@ -117,6 +139,12 @@ export class ItemsComponent implements OnInit {
             message: RESPONSE_MESSAGE.ITEM_CREATED,
             type: NotificationType.SUCCESS
           })
+          // const newItem: ItemResponse = {
+          //   ...this.itemForm.value,
+          //   id: null
+          // };
+          // this.items.content.unshift(newItem);
+          // this.items.content.pop();
 
           this.closeModal();
         },
@@ -128,6 +156,23 @@ export class ItemsComponent implements OnInit {
         }
       })
 
+  }
+
+  getItems(page: number, size: number, sortParam: string, isAsc: boolean){
+    this.itemService
+    .getItems(page, size, sortParam, isAsc)
+      .subscribe({
+        next: (result) => {
+          console.log("items",result);
+          this.items = result;
+        },
+        error: (error) => {
+          this.notificationService.show({
+            message: ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          });
+        }
+      });
   }
 
   getBrands(){
@@ -222,6 +267,49 @@ export class ItemsComponent implements OnInit {
     return this.getErrorMessage(this.itemCategories, FIELD_NAMES.ITEM_CATEGORIES[1]);
   }
 
+
+  parsePrice(price: number): string{
+    const formattedNumber = price.toLocaleString('es-CO', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })
+    return `$${formattedNumber}`;
+  }
+
+  getCategoriesNames(categories: CategoryResponse[]): string[]{
+    return categories.map((category) => category.name);
+  }
+
+  changeSize(event: Event){
+    const select = event.target as HTMLSelectElement;
+    console.log("new size",select.value);
+    this.size = parseInt(select.value);
+    this.getItems(this.page, this.size, this.sortParam, this.isAsc);
+  }
+
+  changeSortParam(event: Event){
+    const select = event.target as HTMLSelectElement;
+    console.log("new sort param",select.value);
+    this.sortParam = select.value;
+    this.getItems(this.page, this.size, this.sortParam, this.isAsc);
+  }
+
+  changeAsc(){
+    this.isAsc = !this.isAsc;
+    this.getItems(this.page, this.size, this.sortParam, this.isAsc);
+  }
+
+  previousPage(){
+    if(this.page === 0) return;
+    this.page -= 1;
+    this.getItems(this.page, this.size, this.sortParam, this.isAsc);
+  }
+
+  nextPage(){
+    if(this.items.last) return;
+    this.page += 1;
+    this.getItems(this.page, this.size, this.sortParam, this.isAsc);
+  }
   
 
   openModal(){
