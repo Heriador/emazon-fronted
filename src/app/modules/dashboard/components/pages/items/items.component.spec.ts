@@ -27,7 +27,7 @@ import {
 
 import { NotificationType } from '../../../../../shared/constants/enums';
 import { of, throwError } from 'rxjs';
-import { Item } from 'src/app/interfaces/item.interface';
+import { Item, ItemResponse } from 'src/app/interfaces/item.interface';
 import { InputFieldComponent } from '../../../../../shared/components/molecules/input-field/input-field.component';
 import { SelectFieldComponent } from '../../../../../shared/components/molecules/select-field/select-field.component';
 import { MultiSelectFieldComponent } from '../../../../../shared/components/molecules/multi-select-field/multi-select-field.component';
@@ -48,6 +48,7 @@ describe('ItemsComponent', () => {
 
     itemService = {
       createItem: jest.fn(),
+      getItems: jest.fn().mockReturnValue({ subscribe: jest.fn() }),
     } as unknown as jest.Mocked<ItemsService>;
 
     categoryService = {
@@ -83,7 +84,8 @@ describe('ItemsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get categories and brands on init', () => {
+
+  it('should get items, categories and brands on init', () => {
     const mockCategoryResponse: Pagination<CategoryResponse> = {
       content: [
         { id: 1, name: 'test', description: 'test' },
@@ -107,17 +109,67 @@ describe('ItemsComponent', () => {
       last: true
     }
 
+    const mockItemResponse: Pagination<ItemResponse> = {
+      content: [
+        { 
+          id: 1,
+          name: 'test', 
+          description: 'test', 
+          price: 100, 
+          stock: 10, 
+          categories: [
+            {
+              id: 1,
+              name: 'test',
+              description: 'test'
+            },
+            {
+              id: 2,
+              name: 'test_2',
+              description: 'test'
+            }
+          ], 
+          brand: {
+            id: 1,
+            name: 'test_brand',
+            description: 'test'
+          }
+        }
+      ],
+      totalElements: 1,
+      totalPages: 1,
+      pageNumber: 0,
+      pageSize: 5,
+      last: true
+    }
+
     jest.spyOn(categoryService, 'getCategories').mockReturnValue(of(mockCategoryResponse));
     jest.spyOn(brandService, 'getBrands').mockReturnValue(of(mockBrandResponse));
+    jest.spyOn(itemService, 'getItems').mockReturnValue(of(mockItemResponse));
 
     component.ngOnInit();
 
+    expect(itemService.getItems).toHaveBeenCalled();
     expect(categoryService.getCategories).toHaveBeenCalled();
     expect(brandService.getBrands).toHaveBeenCalled();
+    expect(component.items).toEqual(mockItemResponse);
     expect(component.categories).toEqual(mockCategoryResponse.content.map(category => ({ selected: false, data: category })));
     expect(component.brands).toEqual(mockBrandResponse.content);
 
 
+  });
+
+  it('should show error message when get items error', () => {
+    const errorResponse = new HttpResponse({ status: HttpStatusCode.NotFound });
+    jest.spyOn(itemService, 'getItems').mockReturnValue(throwError(() => errorResponse));
+
+    component.ngOnInit();
+
+    expect(itemService.getItems).toHaveBeenCalled();
+    expect(notificationService.show).toHaveBeenCalledWith({
+      message: ERROR_MESSAGES_BY_CODE[HttpStatusCode.NotFound] || GENERIC_ERROR_MESSAGE,
+      type: NotificationType.ERROR
+    });
   });
 
   it('should show error message when get categories error', () => {
@@ -323,6 +375,81 @@ describe('ItemsComponent', () => {
     expect(component.itemForm.untouched).toBe(true);
   })
 
+  it('should parse price and return a string', () => {
+    const price = 100;
+    const priceString = component.parsePrice(price);
+    expect(priceString).toBe('$100,00');
+  });
 
+  it('should get categories names and return a string array', () => {
+    const categories: CategoryResponse[] = [
+      { id: 1, name: 'test', description: 'test' },
+      { id: 2, name: 'test_2', description: 'test' }
+    ];
+    const categoriesString = component.getCategoriesNames(categories);
+    expect(categoriesString).toEqual(['test', 'test_2']);
+  });
+
+  it('should change size', () => {
+    const event = {
+      target: {
+        value: '10'
+      }
+    } as unknown as Event;
+
+    component.changeSize(event);
+
+    expect(component.size).toBe(10);
+  });
+
+  it('should change sort param', () => {
+    const event = {
+      target: {
+        value: 'name'
+      }
+    } as unknown as Event;
+
+    component.changeSortParam(event);
+
+    expect(component.sortParam).toBe('name');
+  });
+
+  it('should change asc', () => {
+    component.isAsc = true;
+    component.changeAsc();
+    expect(component.isAsc).toBe(false);
+  });
+
+  it('should change page to previous', () => {
+    component.page = 1;
+    component.previousPage();
+    expect(component.page).toBe(0);
+  });
+
+  it('should not change page to previous if page is 0', () => {
+    component.page = 0;
+    component.previousPage();
+    expect(component.page).toBe(0);
+  });
+
+  it('should change page to next', () => {
+    component.items = {
+      last: false
+    } as Pagination<ItemResponse>;
+
+    component.page = 0;
+    component.nextPage();
+    expect(component.page).toBe(1);
+  });
+
+  it('should not change page to next if last page', () => {
+    component.items = {
+      last: true
+    } as Pagination<ItemResponse>;
+
+    component.page = 0;
+    component.nextPage();
+    expect(component.page).toBe(0);
+  });
 
 });
