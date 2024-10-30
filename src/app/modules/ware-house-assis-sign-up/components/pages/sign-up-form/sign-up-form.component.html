@@ -1,0 +1,90 @@
+<article class="container">
+    <section class="container__items">
+        <div class="container__items-title">
+            <app-text
+                [type]="TextType.H3"
+                content="Crear auxiliar de bodega"
+            ></app-text>
+        </div>
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <div class="container__items-form">
+                <app-input-field
+                label="Nombre"
+                content="text"
+                id="name"
+                name="name"
+                placeholder="Nombre"
+                formControlName="name"
+                [errorMessage]="nameErrorMessage"
+                class="input"
+            ></app-input-field>
+            <app-input-field
+                label="Apellido"
+                content="text"
+                id="lastName"
+                name="lastName"
+                formControlName="lastName"
+                [errorMessage]="lastNameErrorMessage"
+                placeholder="Apellido"
+                class="input"
+            ></app-input-field>
+            <app-input-field
+                label="Documento de identidad"
+                content="text"
+                id="document"
+                name="document"
+                formControlName="identityDocument"
+                [errorMessage]="identityDocumentErrorMessage"
+                placeholder="Documento de identidad"
+                class="input"
+            ></app-input-field>
+            <app-input-field
+                label="Telefono"
+                content="text"
+                id="phone"
+                name="phone"
+                formControlName="phone"
+                [errorMessage]="phoneErrorMessage"
+                placeholder="Telefono"
+                class="input"
+            ></app-input-field>
+            <app-input-field
+                label="Correo"
+                inputType="email"
+                id="email"
+                name="email"
+                formControlName="email"
+                [errorMessage]="emailErrorMessage"
+                placeholder="Correo"
+                class="input"
+            ></app-input-field>
+            <app-input-field
+                label="Contraseña"
+                inputType="password"
+                id="password"
+                name="password"
+                formControlName="password"
+                [errorMessage]="passwordErrorMessage"
+                placeholder="Contraseña"
+                class="input"
+            ></app-input-field>
+            <app-input-field
+                label="fecha de nacimiento"
+                inputType="date"
+                id="birthDate"
+                name="birthDate"
+                formControlName="birthDate"
+                [errorMessage]="birthDateErrorMessage"
+            ></app-input-field>
+            </div>
+
+            <div class="container__items-btn">
+                <app-button
+                    text="Registrarse"
+                    class="btn btn-main btn-s"
+                    [disabled]="signUpForm.invalid"
+                ></app-button>
+            </div>
+            </form>
+    </section>
+</article>
