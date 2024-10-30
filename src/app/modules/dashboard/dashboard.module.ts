@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrandsComponent } from './components/pages/brands/brands.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ItemsComponent } from './components/pages/items/items.component';
+import { SignUpFormComponent } from '../ware-house-assis-sign-up/components/pages/sign-up-form/sign-up-form.component';
 
 
 
@@ -18,7 +19,8 @@ import { ItemsComponent } from './components/pages/items/items.component';
     FooterComponent,
     CategoriesComponent,
     BrandsComponent,
-    ItemsComponent
+    ItemsComponent,
+    SignUpFormComponent
   ],
   imports: [
     CommonModule,
