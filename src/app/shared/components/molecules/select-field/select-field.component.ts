@@ -21,11 +21,14 @@ export class SelectFieldComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() name: string = '';
   @Input() options: any[] = [];
+  @Input() valueParam: string = '';
+  @Input() labelParam: string = '';
   @Input() id: string = '';
   @Input() errorMessage: string = '';
   @Input() disabled: boolean = false;
   @Input() class: string = '';
   @Input() multiple: boolean = false;
+  @Input() row: boolean = false;
 
   onChange: any = () => {};
   onTouched: any = () => {};

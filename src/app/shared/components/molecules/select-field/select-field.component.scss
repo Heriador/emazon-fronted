@@ -3,6 +3,15 @@
     flex-direction: column;
     gap: 0.5rem;
 
+    &.row{
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    &.align-items-center{
+        align-items: center;
+    }
+
     .error-message{
         align-self: self-end;
         margin-right: 2rem;

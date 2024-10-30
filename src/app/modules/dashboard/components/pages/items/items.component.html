@@ -52,6 +52,8 @@
                         name="brand"
                         class="selector"
                         [options]="brands"
+                        valueParam="id"
+                        labelParam="name"
                         [multiple]="false"
                         formControlName="brandId"
                         [errorMessage]="itemBrandErrorMessage"
@@ -75,5 +77,66 @@
             </form>
     
         </app-modal>
+    </section>
+    <app-divider></app-divider>
+    <section class="container__items">
+        <div class="container__items-selectors">
+            <app-select-field
+                [row]="true"
+                label="Mostrar: "
+                id="itemsPerPage"
+                [options]="[5,10,15]"
+                (change)="changeSize($event)"
+            ></app-select-field>
+            <app-select-field
+                [row]="true"
+                label="Ordenar por : "
+                id="orderBy"
+                [options]="[{label:'nombre',value: 'name'}, {label:'marca',value: 'brand'}, {label:'categoria',value:'categories'}]"
+                labelParam="label"
+                valueParam="value"
+                (change)="changeSortParam($event)"
+            ></app-select-field>
+            <div class="constrols__selector">
+                <app-text 
+                    content="Ordenar de forma: "
+                ></app-text>
+                <app-button
+                    (click)="changeAsc()"
+                    class="btn-text btn-s"
+                    [icon]="isAsc ? faArrowDownAZ : faArrowUpAZ"
+                ></app-button>
+            </div>
+        </div>
+        <div class="container__items-card">
+            <app-card
+                *ngFor="let item of items.content"
+                [title]="item.name"
+                [description]="item.description"
+                [price]="parsePrice(item.price)"
+                [stock]="item.stock"
+                [brand]="item.brand.name"
+                [categories]="getCategoriesNames(item.categories)"
+            ></app-card>
+        </div>
+        <div class="container__items-selectors">
+            <app-button
+                class="btn-text btn-s"
+                (click)="previousPage()"
+                [disabled]="items.pageNumber === 0"
+                [icon]="faAnglesLeft"
+            ></app-button>
+            <div class="controls__selector">
+                <app-text
+                    [content]="(items.pageNumber + 1).toString()"
+                ></app-text>
+            </div>
+            <app-button
+                class="btn-text btn-s"
+                (click)="nextPage()"
+                [disabled]="items.last"
+                [icon]="faAnglesRight"
+            ></app-button>
+        </div>
     </section>
 </article>

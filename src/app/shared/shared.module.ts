@@ -19,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SelectFieldComponent } from './components/molecules/select-field/select-field.component';
 import { SelectComponent } from './components/atoms/select/select.component';
 import { MultiSelectFieldComponent } from './components/molecules/multi-select-field/multi-select-field.component';
+import { CardComponent } from './components/organisims/card/card.component';
 
 
 let components = [
@@ -39,7 +40,8 @@ let components = [
   ModalComponent,
   TableCellComponent,
   TableHeadComponent,
-  TableComponent
+  TableComponent,
+  CardComponent
 ]
 
 

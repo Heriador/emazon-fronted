@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Item } from 'src/app/interfaces/item.interface';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Item, ItemResponse } from 'src/app/interfaces/item.interface';
 import { Observable } from 'rxjs';
+import { Pagination } from 'src/app/interfaces/paginated.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,22 @@ export class ItemsService {
         observe: 'response', 
         headers
       });
+  }
+
+  getItems(page: number, size: number, sortParam: string ,isAsc: boolean): Observable<Pagination<ItemResponse>>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sortBy', sortParam)
+      .set('ord', isAsc.toString());
+
+    console.log(params.toString());
+
+    return this.http.get<Pagination<ItemResponse>>(this.apiUrl, {headers, params});
   }
 
 }
