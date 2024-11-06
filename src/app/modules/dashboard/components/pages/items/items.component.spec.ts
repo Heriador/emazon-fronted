@@ -149,7 +149,7 @@ describe('ItemsComponent', () => {
 
     component.ngOnInit();
 
-    expect(itemService.getItems).toBeCalledTimes(1);
+    expect(itemService.getItems).toBeCalledTimes(2);
     expect(categoryService.getCategories).toHaveBeenCalled();
     expect(brandService.getBrands).toHaveBeenCalled();
     expect(component.items).toEqual(mockItemResponse);

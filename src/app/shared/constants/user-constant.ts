@@ -7,8 +7,11 @@ export const USER_ERROR_MESSAGES = {
     notAdult: (fieldName: string, error: any) => {
         return "debe ser mayor de 18";
     },
+    email: (fieldName: string, error: any) => {
+        return `formato de correo invalido`;
+    },
     pattern: (fieldName: string, error: any) => {
-        return `formato invalido`;
+        return `formato de telefono invalido`;
     }
 
 } as const;
