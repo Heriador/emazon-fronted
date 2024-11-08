@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
         }
         else{
           this.notificationService.show({
-            message: 'Invalid email or password',
+            message: 'Correo o contraseña incorrectos',
             type: NotificationType.ERROR
           })
         }
@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         this.notificationService.show({
-          message: 'Invalid email or password',
+          message: 'Correo o contraseña incorrectos',
           type: NotificationType.ERROR
         })
       }
