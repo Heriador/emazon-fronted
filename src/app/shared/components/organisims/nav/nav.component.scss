@@ -5,7 +5,6 @@
     flex-direction: column;
     gap: 2rem;
     grid-area: nav;
-    margin: 10px 0 0 0;
 
     app-nav-link{
         border-bottom: 1px solid $spacer;
@@ -16,7 +15,7 @@
 
     @include desktop{
         flex-direction: row;
-
+        align-items: center;
 
         app-nav-link{
             border-bottom: none;
