@@ -43,10 +43,11 @@
             
             &-menu{
                 display: flex;
-                position: absolute;
-                top: 20px;
-                right: 20%;
-                height: 0;
+                position: inherit;
+                justify-content: flex-end;
+                // top: 20px;
+                // right: 30%;
+                // height: 0;
             }
 
             &-menu-icon{
