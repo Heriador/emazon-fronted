@@ -31,6 +31,7 @@ import { arrayMinLengthValidator } from '../../../../../shared/utils/custom-vali
 import { Pagination } from 'src/app/interfaces/paginated.interface';
 import { ItemResponse } from 'src/app/interfaces/item.interface';
 import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { Roles } from '../../../../../shared/roles';
 
 @Component({
   selector: 'app-items',
@@ -39,6 +40,7 @@ import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortaw
 })
 export class ItemsComponent implements OnInit {
 
+  Roles = Roles;
   TextType = TextType;
   isModalOpen: boolean = false;
   faArrowDownAZ = faArrowDownAZ;

@@ -12,6 +12,7 @@ import {
 import { NotificationType, TextType } from '../../../../../shared/constants/enums';
 import { BrandResponse } from 'src/app/interfaces/brand.interface';
 import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { Roles } from '../../../../../shared/roles';
 
 @Component({
   selector: 'app-brands',
@@ -20,6 +21,7 @@ import { Pagination } from 'src/app/interfaces/paginated.interface';
 })
 export class BrandsComponent implements OnInit {
 
+  Roles = Roles;
   TextType = TextType;
   isModalOpen: boolean = false;
   public brandForm: FormGroup;

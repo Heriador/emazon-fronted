@@ -18,6 +18,7 @@ import {
 import { HttpStatusCode } from '@angular/common/http';
 import { CategoryResponse } from 'src/app/interfaces/category.interface';
 import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { Roles } from '../../../../../shared/roles';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -25,6 +26,7 @@ import { Pagination } from 'src/app/interfaces/paginated.interface';
 })
 export class CategoriesComponent implements OnInit {
 
+  Roles = Roles;
   TextType = TextType;
   isModalOpen: boolean = false;
   headArray = [

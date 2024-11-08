@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { TextType } from '../../../constants/enums';
+import { Roles } from '../../../roles';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  Roles = Roles;
+  TextType = TextType;
+
+  constructor(
+    private readonly authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
   }
 
+  logout(){
+    this.authService.logout();
+  }
 }
