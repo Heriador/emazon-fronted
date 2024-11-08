@@ -76,6 +76,12 @@ export class LoginComponent implements OnInit {
           console.log('entro')
           this.router.navigate(['/dashboard']);
         }
+        else{
+          this.notificationService.show({
+            message: 'Invalid email or password',
+            type: NotificationType.ERROR
+          })
+        }
 
       },
       error: (error) => {
