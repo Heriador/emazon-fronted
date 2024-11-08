@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { last } from 'rxjs';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
 import { User } from '../../../../../interfaces/user.interface';
-import { UsersService } from '../../../../../services/users.service';
+import { UsersService } from '../../../../../services/user/users.service';
 import { NotificationType, TextType } from '../../../../../shared/constants/enums';
 import { 
   GENERIC_ERROR_MESSAGE, 

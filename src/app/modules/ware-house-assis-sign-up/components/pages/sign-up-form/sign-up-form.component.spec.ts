@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignUpFormComponent } from './sign-up-form.component';
-import { UsersService } from '../../../../../services/users.service';
+import { UsersService } from '../../../../../services/user/users.service';
 import { NotificationService } from '../../../../../core/services/notification/notification.service';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { InputFieldComponent } from '../../../../../shared/components/molecules/input-field/input-field.component';

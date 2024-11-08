@@ -1,10 +1,10 @@
 @import "styles";
 
 .input{
-    padding: 0.75rem;
+    padding: 0.8rem 1.2rem;
     border: 0.1rem solid $spacer-light;
-    border-radius: 2px;
-    width: 19.151rem;
+    border-radius: 0.2rem;
+    width: 100%;
     color: $black;
 
     &-error{

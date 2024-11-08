@@ -1,6 +1,14 @@
 <div class="container">
     <div class="container__modal">
-        <app-button (click)="openModal()" class="btn btn-main btn-m" text="Crear categoria" ></app-button>
+        <div
+        >
+            <app-button 
+            (click)="openModal()" 
+            class="btn btn-main btn-m" 
+            text="Crear categoria"
+            *appRole="Roles.ADMIN"
+        ></app-button>
+        </div>
 
         <app-modal [isVisible]="isModalOpen" (close)="closeModal()">
             <app-text [type]="TextType.H3" content="Crear categoria"></app-text>

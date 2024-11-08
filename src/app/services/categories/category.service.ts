@@ -11,7 +11,6 @@ import { Pagination } from 'src/app/interfaces/paginated.interface';
 export class CategoryService {
 
   private readonly apiUrl = environment.stock_service_url+"/category/";
-  private readonly token = environment.auth_token;
 
 
   constructor(private readonly http: HttpClient) { }
@@ -19,7 +18,6 @@ export class CategoryService {
   createCategory(category: Category): Observable<HttpResponse<Category>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`
     })
 
     return this.http.post<Category>(this.apiUrl, category, 
@@ -30,16 +28,14 @@ export class CategoryService {
   }
 
   getCategories(page: number, size: number, ord: boolean): Observable<Pagination<CategoryResponse>> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`
-    })
+  
 
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
       .set('ord', ord.toString());
 
-    return this.http.get<Pagination<CategoryResponse>>(this.apiUrl, {headers, params});
+    return this.http.get<Pagination<CategoryResponse>>(this.apiUrl,{params});
   }
 
 }

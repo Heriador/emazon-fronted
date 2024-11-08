@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../..//environments/environment';
-import { User } from '../interfaces/user.interface';
+import { environment } from '../../../environments/environment';
+import { User } from '../../interfaces/user.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({

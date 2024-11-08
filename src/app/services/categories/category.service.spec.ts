@@ -43,7 +43,6 @@ describe('CategoryService', () => {
     const req = httpMock.expectOne(environment.stock_service_url+"/category/");
     expect(req.request.method).toBe('POST');
     expect(req.request.headers.get('Content-Type')).toBe('application/json');
-    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
     expect(req.request.body).toEqual(category);
     req.event(mockResponse);
   });
@@ -76,7 +75,6 @@ describe('CategoryService', () => {
 
     const req = httpMock.expectOne(environment.stock_service_url+"/category/?page=0&size=5&ord=true");
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
     req.flush(mockResponse);
   });
 

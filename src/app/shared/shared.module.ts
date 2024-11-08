@@ -20,6 +20,8 @@ import { SelectFieldComponent } from './components/molecules/select-field/select
 import { SelectComponent } from './components/atoms/select/select.component';
 import { MultiSelectFieldComponent } from './components/molecules/multi-select-field/multi-select-field.component';
 import { CardComponent } from './components/organisims/card/card.component';
+import { RolesDirective } from './roles.directive';
+import { RouterModule } from '@angular/router';
 
 
 let components = [
@@ -41,7 +43,8 @@ let components = [
   TableCellComponent,
   TableHeadComponent,
   TableComponent,
-  CardComponent
+  CardComponent,
+  RolesDirective
 ]
 
 
@@ -49,6 +52,7 @@ let components = [
   declarations: components,
   imports: [
     CommonModule,
+    RouterModule,
     FontAwesomeModule
   ],
   exports: components

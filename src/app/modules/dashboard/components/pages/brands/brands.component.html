@@ -1,7 +1,12 @@
 <article class="container">
     <section class="container__modal">
 
-        <app-button (click)="openModal()" class="btn btn-main btn-m" text="Crear marca" ></app-button>
+        <app-button 
+            (click)="openModal()" 
+            class="btn btn-main btn-m" 
+            text="Crear marca" 
+            *appRole="Roles.ADMIN"
+        ></app-button>
 
 
         <app-modal [isVisible]="isModalOpen" (close)="closeModal()">

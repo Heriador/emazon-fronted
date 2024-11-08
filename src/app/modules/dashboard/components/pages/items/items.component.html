@@ -1,7 +1,12 @@
 <article class="container">
     <section class="container__modal">
 
-        <app-button (click)="openModal()" class="btn btn-main btn-m" text="Crear articulo" ></app-button>
+        <app-button 
+            (click)="openModal()" 
+            class="btn btn-main btn-m" 
+            text="Crear articulo" 
+            *appRole="Roles.ADMIN"
+        ></app-button>
         <app-modal [isVisible]="isModalOpen" (close)="closeModal()">
             <app-text [type]="TextType.H3" content="Crear articulo"></app-text>
             <app-divider></app-divider>
