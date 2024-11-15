@@ -18,6 +18,7 @@ export const USER_ERROR_MESSAGES = {
 
 export const USER_RESPONSE_MESSAGE = {
     WAREHOUSE_ASSIS_USER_CREATED: 'Usuario auxiliar de bodega creado con éxito',
+    CLIENT_USER_CREATED: 'Usuario cliente creado con éxito',
     UNEXPECTED_RESPONSE: 'Respuesta inesperada del servidor',
 }
 

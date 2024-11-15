@@ -27,4 +27,15 @@ export class UsersService {
       headers
     })
   }
+
+  createUserClient(user: User): Observable<HttpResponse<User>>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+
+    return this.http.post<User>(this.apiUrl+"client", user,{
+      observe: 'response',
+      headers
+    })
+  }
 }
