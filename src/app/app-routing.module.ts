@@ -15,6 +15,14 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
+    path: 'register',
+    loadChildren: () => 
+      import('./modules/register-user-client/register-user-client.module').
+    then(
+      (m) => m.RegisterUserClientModule
+    )
+  },
+  {
     path: 'dashboard', 
     loadChildren: () => 
       import('./modules/dashboard/dashboard.module')
