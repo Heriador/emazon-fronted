@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { Roles } from '../../../roles';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -8,6 +9,7 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 })
 export class CardComponent implements OnInit {
 
+  Roles = Roles;
   TextType = TextType;
   faPlus = faPlus;
   faMinus = faMinus;
@@ -19,6 +21,7 @@ export class CardComponent implements OnInit {
   @Input() stock: number = 0;
   @Input() categories: string[] = [];
   @Output() selectedQuantity: EventEmitter<number> = new EventEmitter<number>();
+  @Output() clickedAdd: EventEmitter<void> = new EventEmitter<void>();
 
   quantity: number = 1;
   showMore: boolean = false;
@@ -41,6 +44,10 @@ export class CardComponent implements OnInit {
     if(this.quantity > 1){
       this.quantity--;
     }
+  }
+
+  addProduct(){
+    this.clickedAdd.emit();
   }
 
 

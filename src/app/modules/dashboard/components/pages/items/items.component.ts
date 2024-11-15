@@ -31,7 +31,14 @@ import { arrayMinLengthValidator } from '../../../../../shared/utils/custom-vali
 import { Pagination } from 'src/app/interfaces/paginated.interface';
 import { ItemResponse } from 'src/app/interfaces/item.interface';
 import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { TransactionService } from '../../../../../services/transactions/transaction.service';
 import { Roles } from '../../../../../shared/roles';
+import { 
+  SUPPLY_ERROR_MESSAGES, 
+  SUPPLY_ERROR_MESSAGES_BY_CODE, 
+  SUPPLY_FIELD_NAMES, 
+  SUPPLY_RESPONSE_MESSAGE 
+} from '../../../../../shared/constants/supply-constants';
 
 @Component({
   selector: 'app-items',
@@ -43,11 +50,13 @@ export class ItemsComponent implements OnInit {
   Roles = Roles;
   TextType = TextType;
   isModalOpen: boolean = false;
+  isEditModalOpen: boolean = false;
   faArrowDownAZ = faArrowDownAZ;
   faArrowUpAZ = faArrowUpAZ;
   faAnglesLeft = faAnglesLeft;
   faAnglesRight = faAnglesRight;
 
+  public supplyForm: FormGroup;
   public itemForm: FormGroup;
   public brands: BrandResponse[] = [];
   public categories: SelectItem<CategoryResponse>[] = [];
@@ -64,12 +73,14 @@ export class ItemsComponent implements OnInit {
   page: number = 0;
   isAsc: boolean = true;
   sortParam: string = 'name';
+  currentItem: ItemResponse | null = null;
 
   constructor(
     private readonly itemService: ItemsService,
     private readonly brandService: BrandService,
     private readonly categoryService: CategoryService,
     private readonly notificationService: NotificationService,
+    private readonly supplyService: TransactionService,
     private readonly formBuilder: FormBuilder
   ) { 
     this.itemForm = this.formBuilder.group({
@@ -112,12 +123,65 @@ export class ItemsComponent implements OnInit {
         ]
       ]
     });
+
+    this.supplyForm = this.formBuilder.group({
+      quantity: [0,[Validators.required,Validators.min(1)]],
+      nextSupplyDate: ['',Validators.required]
+    })
   }
 
   ngOnInit(): void {
     this.getItems(this.page, this.size, this.sortParam, this.isAsc);
     this.getBrands();
     this.getCategories();
+  }
+
+  addSupply(){
+    if(this.supplyForm.invalid){
+      this.supplyForm.markAllAsTouched();
+      return;
+    }
+
+    this.supplyService
+      .addSupplyTransaction({
+        ...this.supplyForm.value,
+        itemId: this.currentItem?.id as number
+      })
+      .subscribe({
+        next: (response) => {
+          if(response.status !== HttpStatusCode.Created){
+            return this.notificationService.show({
+              message: SUPPLY_RESPONSE_MESSAGE.UNEXPECTED_RESPONSE,
+              type: NotificationType.ERROR
+            })
+          }
+
+          this.notificationService.show({
+            message: SUPPLY_RESPONSE_MESSAGE.SUPPLY_CREATED,
+            type: NotificationType.SUCCESS
+          })
+          this.items.content = this.items.content.map((item) => {
+            if(item.id === this.currentItem?.id){
+              item.stock += Number(this.supplyForm.value.quantity);
+            }
+
+            return item;
+          });
+          this.supplyForm.reset({
+            quantity: 0,
+            nextSupplyDate: ''
+          })
+          this.closeEditModal();
+        },
+        error: (error) => {
+          console.log("error",error);
+          this.notificationService.show({
+            message: SUPPLY_ERROR_MESSAGES_BY_CODE[error.status] || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          });
+      }
+    })
+
   }
 
   createItem(){
@@ -219,6 +283,32 @@ export class ItemsComponent implements OnInit {
     }
 
     return '';
+  }
+
+  getSupplyErrorMessage(control: AbstractControl | null, fieldName: string): string{
+    if(control?.touched && control?.errors){
+      const firtError = Object.keys(control.errors)[0] as keyof typeof SUPPLY_ERROR_MESSAGES;
+      const error = control.errors[firtError];
+      return SUPPLY_ERROR_MESSAGES[firtError](fieldName,error);
+    }
+
+    return '';
+  }
+
+  get supplyQuantityErrorMessage(){
+    return this.getSupplyErrorMessage(this.supplyQuantity, SUPPLY_FIELD_NAMES.SUPPLY_QUANTITY[1]);
+  }
+
+  get supplyNextSupplyDateErrorMessage(){
+    return this.getSupplyErrorMessage(this.supplyNextSupplyDate, SUPPLY_FIELD_NAMES.SUPPLY_NEXT_SUPPLY_DATE[1]);
+  }
+
+  get supplyQuantity(){
+    return this.supplyForm.get(SUPPLY_FIELD_NAMES.SUPPLY_QUANTITY[0]);
+  }
+
+  get supplyNextSupplyDate(){
+    return this.supplyForm.get(SUPPLY_FIELD_NAMES.SUPPLY_NEXT_SUPPLY_DATE[0]);
   }
 
   get itemName(){
@@ -330,6 +420,16 @@ export class ItemsComponent implements OnInit {
     });
     this.itemForm.markAsPristine();
     this.itemForm.markAsUntouched();
+  }
+
+  openEditModal(item: ItemResponse){
+    this.currentItem = item;
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal(){
+    this.isEditModalOpen = false;
+    this.currentItem = null;
   }
 
 }

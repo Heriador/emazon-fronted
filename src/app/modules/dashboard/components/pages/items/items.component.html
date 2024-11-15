@@ -82,8 +82,59 @@
             </form>
     
         </app-modal>
+
+        <app-modal
+            [isVisible]="isEditModalOpen"
+            (close)="closeEditModal()"
+        >
+            <app-text [type]="TextType.H3" [content]="'Agregar suministro a producto '+currentItem?.name"></app-text>
+            <app-divider></app-divider>
+            <form class="container-form" [formGroup]="supplyForm" (ngSubmit)="addSupply()">
+                <div class="container-inputs">
+                    <app-input-field
+                        label="Cantidad"
+                        id="quantity"
+                        name="quantity"
+                        placeholder="Cantidad"
+                        class="input"
+                        formControlName="quantity"
+                        [errorMessage]="supplyQuantityErrorMessage"
+                        inputType="number"
+                    ></app-input-field>
+                    <app-input-field
+                        label="Fecha proximo suministro"
+                        id="nextSupplyDate"
+                        name="nextSupplyDate"
+                        placeholder="Fecha proximo suministro"
+                        class="input"
+                        formControlName="nextSupplyDate"
+                        [errorMessage]="supplyNextSupplyDateErrorMessage"
+                        inputType="date"
+                    ></app-input-field>
+                </div>
+                <div class="container-btn">
+                    <app-button
+                        class="btn btn-main btn-s"
+                        text="agregar"
+                        [disabled]="supplyForm.invalid"
+                    ></app-button>  
+                </div>
+            </form>
+        </app-modal>
     </section>
     <app-divider></app-divider>
+    <!-- <app-table
+        [HeadArray]="headArray"
+        [BodyArray]="items.content"
+        [totalElements]="items.totalElements"
+        [totalPages]="items.totalPages"
+        [showActions]="true"
+        (pageChange)="changePage($event)"
+        (sizeChange)="changeSize($event)"
+        (isAscChange)="changeAsc($event)"
+        (actionOnClick)="openEditModal($event)"
+        (sortParamChange)="changeSortParam($event)"
+    ></app-table> -->
     <section class="container__items">
         <div class="container__items-selectors">
             <app-select-field
@@ -103,12 +154,12 @@
                 (change)="changeSortParam($event)"
             ></app-select-field>
             <div class="constrols__selector">
-                <app-text 
+                <app-text
                     content="Ordenar de forma: "
                 ></app-text>
                 <app-button
                     (click)="changeAsc()"
-                    class="btn-text btn-s"
+                    class="btn-text btn-l"
                     [icon]="isAsc ? faArrowDownAZ : faArrowUpAZ"
                 ></app-button>
             </div>
@@ -122,6 +173,7 @@
                 [stock]="item.stock"
                 [brand]="item.brand.name"
                 [categories]="getCategoriesNames(item.categories)"
+                (clickedAdd)="openEditModal(item)"
             ></app-card>
         </div>
         <div class="container__items-selectors">

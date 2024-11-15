@@ -1,6 +1,18 @@
 <div class="container">
     <div class="card">
-        <img src="assets/images/placeholder.webp" class="card-image"  alt="placeholder" >
+        <div class="image-container">
+            <img src="assets/images/placeholder.webp" class="card-image"  alt="placeholder" >
+            <app-button 
+                [icon]="faPlus"
+                class="btn-secondary btn-s"
+                (click)="addProduct()"
+                *appRole="Roles.WAREHOUSE_ASSISTANT"
+            >
+            <div class="tool-tip" role="tooltip">
+                añadir suministro
+            </div>
+            </app-button>
+        </div>
         <div class="card-header">
         <app-text [type]="TextType.H4" [content]="title"></app-text>
         </div>

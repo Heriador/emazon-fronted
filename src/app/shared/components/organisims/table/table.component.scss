@@ -1,20 +1,24 @@
 @use "styles" as *;
 
+:host{
+    width: 100%;
+}
+
 .table-container{
     max-width: 300px;
-    max-height: 200px;
+    max-height: 80%;
     overflow-x: auto;
     overflow-y: scroll;
     margin: 20px;
 
     @include tablet{
         max-width: 100%;
-        max-height: 260px;
+        // max-height: 260px;
     }
 
     @include desktop{
         max-width: 100%;
-        max-height: 360px;
+        // max-height: 360px;
     }
 }
 
@@ -46,7 +50,7 @@
     &__cell{
         padding: 4px 12px;
         width: auto;
-        min-width: 30rem;
+        min-width: 15rem;
         @extend .body-s;
 
         @include tablet{
@@ -85,6 +89,8 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
+    align-items: center;
+    @extend .body-xs;
 
     &__selector{
         display: flex;
@@ -92,7 +98,7 @@
         align-items: center;
 
         &-icon{
-            font-size: 2rem;
+            font-size: 2rem !important;
         }
     }
 }

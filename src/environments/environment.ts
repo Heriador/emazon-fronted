@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   stock_service_url: 'http://localhost:9090',
   auth_service_url: 'http://localhost:9080',
+  transaction_service_url: 'http://localhost:9081/transaction',
   auth_token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJzdWIiOiIxIiwiaWF0IjoxNzI4NjgxMDkxLCJleHAiOjE3MzEyNzMwOTF9.glxOrHAcahnBNNvxNVPWOE9l8cTXpIp7ZX5Yi7jHLaE'
 };
 

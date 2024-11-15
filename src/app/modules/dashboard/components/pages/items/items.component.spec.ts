@@ -35,6 +35,10 @@ import { TextareaFieldComponent } from '../../../../../shared/components/molecul
 import { Pagination } from 'src/app/interfaces/paginated.interface';
 import { CategoryResponse } from 'src/app/interfaces/category.interface';
 import { BrandResponse } from 'src/app/interfaces/brand.interface';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SUPPLY_ERROR_MESSAGES, SUPPLY_ERROR_MESSAGES_BY_CODE, SUPPLY_FIELD_NAMES, SUPPLY_RESPONSE_MESSAGE } from '../../../../../shared/constants/supply-constants';
+import { TransactionService } from '../../../../../services/transactions/transaction.service';
+import { SupplyRequest } from 'src/app/interfaces/supply.interface';
 
 describe('ItemsComponent', () => {
   let component: ItemsComponent;
@@ -43,6 +47,7 @@ describe('ItemsComponent', () => {
   let categoryService: jest.Mocked<CategoryService>;
   let brandService: jest.Mocked<BrandService>;
   let notificationService: jest.Mocked<NotificationService>;
+  let transactionService: jest.Mocked<TransactionService>;
 
   beforeEach(async () => {
 
@@ -63,14 +68,19 @@ describe('ItemsComponent', () => {
       show: jest.fn()
     } as unknown as jest.Mocked<NotificationService>;
 
+    transactionService = {
+      addSupplyTransaction: jest.fn().mockReturnValue({ subscribe: jest.fn() })
+    } as unknown as jest.Mocked<TransactionService>;
+
     await TestBed.configureTestingModule({
       declarations: [ ItemsComponent, InputFieldComponent, TextareaFieldComponent ,SelectFieldComponent, MultiSelectFieldComponent ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule, HttpClientTestingModule],
       providers: [FormBuilder,
         {provide: ItemsService, useValue: itemService},
         {provide: CategoryService, useValue: categoryService},
         {provide: BrandService, useValue: brandService},
-        {provide: NotificationService, useValue: notificationService}
+        {provide: NotificationService, useValue: notificationService},
+        {provide: TransactionService, useValue: transactionService},
       ]
     })
     .compileComponents();
@@ -224,110 +234,243 @@ describe('ItemsComponent', () => {
     });
   });
 
-  it('should not create item if form is invalid', () => {
-    component.itemForm.setErrors({ invalid: true });
-    component.createItem();
+  
 
-    expect(component.itemForm.touched).toBe(true);
-    expect(itemService.createItem).not.toHaveBeenCalled();
-    expect(notificationService.show).not.toHaveBeenCalled();
-  });
+  describe('CreateItem', () => {
 
-  it('should create item successfully', () => {
-    const item: Item = {
-      name: 'test',
-      description: 'test',
-      price: 100,
-      stock: 10,
-      categories: [1,2],
-      brandId: 1
-    }
-    const mockResponse = new HttpResponse<Item>({ status: 201, body: item });
-
-    jest.spyOn(itemService, 'createItem').mockReturnValue(of(mockResponse));
-
-    component.itemForm.setValue(item);
-
-    component.createItem();
-
-    expect(itemService.createItem).toHaveBeenCalledWith(item);
-    expect(notificationService.show).toHaveBeenCalledWith({
-      message: RESPONSE_MESSAGE.ITEM_CREATED,
-      type: NotificationType.SUCCESS
-    })
-  });
-
-  it('should show error message when create item unexpected response', () => {
-    const item: Item = {
-      name: 'test',
-      description: 'test',
-      price: 100,
-      stock: 10,
-      categories: [1,2],
-      brandId: 1
-    }
-    const mockResponse = new HttpResponse<Item>({ status: 200, body: item });
-
-    jest.spyOn(itemService, 'createItem').mockReturnValue(of(mockResponse));
-
-    component.itemForm.setValue(item);
-
-    component.createItem();
-
-    expect(itemService.createItem).toHaveBeenCalledWith(item);
-    expect(notificationService.show).toHaveBeenCalledWith({
-      message: RESPONSE_MESSAGE.UNEXPECTED_RESPONSE,
-      type: NotificationType.ERROR
+    it('should not create item if form is invalid', () => {
+      component.itemForm.setErrors({ invalid: true });
+      component.createItem();
+  
+      expect(component.itemForm.touched).toBe(true);
+      expect(itemService.createItem).not.toHaveBeenCalled();
+      expect(notificationService.show).not.toHaveBeenCalled();
     });
-  });
 
-  it('should show error message when create category error', () => {
-    const item: Item = {
-      name: 'test',
-      description: 'test',
-      price: 100,
-      stock: 10,
-      categories: [1,2],
-      brandId: 1
-    }
-    const errorResponse = new HttpResponse({ status: HttpStatusCode.Conflict });
-
-    jest.spyOn(itemService, 'createItem').mockReturnValue(throwError(() => errorResponse));
-
-    component.itemForm.setValue(item);
-
-    component.createItem();
-
-    expect(itemService.createItem).toHaveBeenCalledWith(item);
-    expect(notificationService.show).toHaveBeenCalledWith({
-      message: ERROR_MESSAGES_BY_CODE[HttpStatusCode.Conflict] || GENERIC_ERROR_MESSAGE,
-      type: NotificationType.ERROR
+    it('should create item successfully', () => {
+      const item: Item = {
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [1,2],
+        brandId: 1
+      }
+      const mockResponse = new HttpResponse<Item>({ status: 201, body: item });
+  
+      jest.spyOn(itemService, 'createItem').mockReturnValue(of(mockResponse));
+  
+      component.itemForm.setValue(item);
+  
+      component.createItem();
+  
+      expect(itemService.createItem).toHaveBeenCalledWith(item);
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: RESPONSE_MESSAGE.ITEM_CREATED,
+        type: NotificationType.SUCCESS
+      })
     });
-  });
-
-  it('should show error message when server error', () => {
-    const item: Item = {
-      name: 'test',
-      description: 'test',
-      price: 100,
-      stock: 10,
-      categories: [1,2],
-      brandId: 1
-    }
-    const errorResponse = new HttpResponse({ status: HttpStatusCode.NotImplemented });
-
-    jest.spyOn(itemService, 'createItem').mockReturnValue(throwError(() => errorResponse));
-
-    component.itemForm.setValue(item);
-
-    component.createItem();
-
-    expect(itemService.createItem).toHaveBeenCalledWith(item);
-    expect(notificationService.show).toHaveBeenCalledWith({
-      message: GENERIC_ERROR_MESSAGE,
-      type: NotificationType.ERROR
+  
+    it('should show error message when create item unexpected response', () => {
+      const item: Item = {
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [1,2],
+        brandId: 1
+      }
+      const mockResponse = new HttpResponse<Item>({ status: 200, body: item });
+  
+      jest.spyOn(itemService, 'createItem').mockReturnValue(of(mockResponse));
+  
+      component.itemForm.setValue(item);
+  
+      component.createItem();
+  
+      expect(itemService.createItem).toHaveBeenCalledWith(item);
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: RESPONSE_MESSAGE.UNEXPECTED_RESPONSE,
+        type: NotificationType.ERROR
+      });
     });
+  
+    it('should show error message when create category error', () => {
+      const item: Item = {
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [1,2],
+        brandId: 1
+      }
+      const errorResponse = new HttpResponse({ status: HttpStatusCode.Conflict });
+  
+      jest.spyOn(itemService, 'createItem').mockReturnValue(throwError(() => errorResponse));
+  
+      component.itemForm.setValue(item);
+  
+      component.createItem();
+  
+      expect(itemService.createItem).toHaveBeenCalledWith(item);
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: ERROR_MESSAGES_BY_CODE[HttpStatusCode.Conflict] || GENERIC_ERROR_MESSAGE,
+        type: NotificationType.ERROR
+      });
+    });
+  
+    it('should show error message when server error', () => {
+      const item: Item = {
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [1,2],
+        brandId: 1
+      }
+      const errorResponse = new HttpResponse({ status: HttpStatusCode.NotImplemented });
+  
+      jest.spyOn(itemService, 'createItem').mockReturnValue(throwError(() => errorResponse));
+  
+      component.itemForm.setValue(item);
+  
+      component.createItem();
+  
+      expect(itemService.createItem).toHaveBeenCalledWith(item);
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: GENERIC_ERROR_MESSAGE,
+        type: NotificationType.ERROR
+      });
+    });
+  
   });
+
+  describe('AddSupply', () => {
+
+    it('should not add supply if form is invalid', () => {
+      component.supplyForm.setErrors({ invalid: true });
+      component.addSupply();
+
+      expect(component.supplyForm.touched).toBe(true);
+      expect(transactionService.addSupplyTransaction).not.toHaveBeenCalled();
+      expect(notificationService.show).not.toHaveBeenCalled();
+    });
+
+    it('should add supply successfully', () => {
+      const supply = {
+        quantity: 10,
+        nextSupplyDate: new Date()
+      }
+  
+      const currentItem: ItemResponse = {
+        id: 1,
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [
+          { id: 1, name: 'test', description: 'test' },
+          { id: 2, name: 'test_2', description: 'test' }
+        ],
+        brand: { id: 1, name: 'test_brand', description: 'test' }
+      }
+
+      component.items = {
+        content: [currentItem],
+        totalElements: 1,
+        totalPages: 1,
+        pageNumber: 0,
+        pageSize: 5,
+        last: true
+      }
+  
+      const mockResponse = new HttpResponse<SupplyRequest>({ status: 201, body: {...supply, itemId: 1} });
+  
+      jest.spyOn(transactionService, 'addSupplyTransaction').mockReturnValue(of(mockResponse));
+  
+      component.supplyForm.setValue({...supply});
+      component.currentItem = currentItem;
+  
+      component.addSupply();
+  
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: SUPPLY_RESPONSE_MESSAGE.SUPPLY_CREATED,
+        type: NotificationType.SUCCESS
+      });
+
+      currentItem.stock += supply.quantity;
+      expect(component.items.content[0].stock).toBe(currentItem.stock);
+      
+    });
+
+    it('should show error message when add supply unexpected message', () => {
+      const supply = {
+        quantity: 10,
+        nextSupplyDate: new Date()
+      }
+  
+      const currentItem: ItemResponse = {
+        id: 1,
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [
+          { id: 1, name: 'test', description: 'test' },
+          { id: 2, name: 'test_2', description: 'test' }
+        ],
+        brand: { id: 1, name: 'test_brand', description: 'test' }
+      }
+  
+      const mockResponse = new HttpResponse<SupplyRequest>({ status: 200, body: {...supply, itemId: 1} });
+  
+      jest.spyOn(transactionService, 'addSupplyTransaction').mockReturnValue(of(mockResponse));
+  
+      component.supplyForm.setValue({...supply});
+      component.currentItem = currentItem;
+  
+      component.addSupply();
+  
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: SUPPLY_RESPONSE_MESSAGE.UNEXPECTED_RESPONSE,
+        type: NotificationType.ERROR
+      });
+    });
+
+    it('should show error message when add supply error', () => {
+      const supply = {
+        quantity: 10,
+        nextSupplyDate: new Date()
+      }
+  
+      const currentItem: ItemResponse = {
+        id: 1,
+        name: 'test',
+        description: 'test',
+        price: 100,
+        stock: 10,
+        categories: [
+          { id: 1, name: 'test', description: 'test' },
+          { id: 2, name: 'test_2', description: 'test' }
+        ],
+        brand: { id: 1, name: 'test_brand', description: 'test' }
+      }
+  
+      const mockResponse = new HttpResponse({ status: HttpStatusCode.BadRequest });
+  
+      jest.spyOn(transactionService, 'addSupplyTransaction').mockReturnValue(throwError(() => mockResponse));
+  
+      component.supplyForm.setValue({...supply});
+      component.currentItem = currentItem;
+  
+      component.addSupply();
+  
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: SUPPLY_ERROR_MESSAGES_BY_CODE[HttpStatusCode.BadRequest],
+        type: NotificationType.ERROR
+      });
+    });
+  })
 
   it('should return empty string if no error', () => {
     const error = component.getErrorMessage(null, 'test');
@@ -344,6 +487,21 @@ describe('ItemsComponent', () => {
     expect(errorMessage).toBe('');
   });
 
+  it('should return empty string if no error in supply', () => {
+    const error = component.getSupplyErrorMessage(null, 'test');
+    expect(error).toEqual('');
+  });
+
+  it('should return empty string if supply control is valid', () => {
+    const control = component.supplyQuantity;
+
+    control?.markAsTouched();
+    control?.setErrors(null);
+
+    const errorMessage = component.getErrorMessage(control, FIELD_NAMES.ITEM_NAME[0]);
+    expect(errorMessage).toBe('');
+  });
+
   it('should return error message if invalid item name', () => {
     const control = component.itemName;
     control?.markAsTouched();
@@ -351,6 +509,15 @@ describe('ItemsComponent', () => {
 
     const errorMessage = component.itemNameErrorMessage;
     expect(errorMessage).toBe(ERROR_MESSAGES.required(FIELD_NAMES.ITEM_NAME[1]));
+  });
+
+  it('should return error message if invalid supply quantity', () => {
+    const control = component.supplyQuantity;
+    control?.markAsTouched();
+    control?.setErrors({ required: true });
+
+    const errorMessage = component.supplyQuantityErrorMessage;
+    expect(errorMessage).toBe(SUPPLY_ERROR_MESSAGES.required(SUPPLY_FIELD_NAMES.SUPPLY_QUANTITY[1]));
   });
 
   it('should open modal', () => {
@@ -450,6 +617,33 @@ describe('ItemsComponent', () => {
     component.page = 0;
     component.nextPage();
     expect(component.page).toBe(0);
+  });
+
+  it('should open edit modal', () => {
+    const item: ItemResponse = {
+      id: 1,
+      name: 'test',
+      description: 'test',
+      price: 100,
+      stock: 10,
+      categories: [
+        { id: 1, name: 'test', description: 'test' },
+        { id: 2, name: 'test_2', description: 'test' }
+      ],
+      brand: { id: 1, name: 'test_brand', description: 'test' }
+    }
+
+    component.openEditModal(item);
+
+    expect(component.isEditModalOpen).toBe(true);
+    expect(component.currentItem).toEqual(item);
+  });
+
+  it('should close edit modal', () => {
+    component.isEditModalOpen = true;
+    component.closeEditModal();
+    expect(component.isEditModalOpen).toBe(false);
+    expect(component.currentItem).toBeNull();
   });
 
 });

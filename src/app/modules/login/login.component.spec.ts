@@ -124,7 +124,7 @@ describe('LoginComponent', () => {
 
     expect(notificationService.show).toBeCalledTimes(1);
     expect(notificationService.show).toBeCalledWith({
-      message: 'Invalid email or password',
+      message: 'Correo o contraseña incorrectos',
       type: NotificationType.ERROR
     });
 
