@@ -41,6 +41,7 @@ describe('UsersService', () => {
     service.createWarehouseAssis(user).subscribe(response => {
       expect(response.status).toBe(201);
       expect(response.statusText).toBe('Created');
+      expect(response.body).toEqual(user);
     });
 
     const req = httpMock.expectOne(environment.auth_service_url+"/users/warehouse-assistant");
@@ -49,4 +50,32 @@ describe('UsersService', () => {
     expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
 
   });
+
+  it('should create a user client and return the response', () => {
+    const user: User = {
+      name: 'Test',
+      lastName: 'User',
+      email: 'test@gmail.com',
+      password: 'testpassword',
+      identityDocument: '12345678',
+      phone: '1234567890',
+      birthDate: "22/04/2001"
+    }
+
+
+    service.createUserClient(user).subscribe(response => {
+      expect(response.status).toBe(201);
+      expect(response.statusText).toBe('Created');
+      expect(response.body).toEqual(user);
+    });
+
+    const req = httpMock.expectOne(environment.auth_service_url+"/users/client");
+    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.get('Content-Type')).toBe('application/json');
+    expect(req.request.headers.get('Authorization')).toBe(null);
+
+  });
+
+
+
 });
