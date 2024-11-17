@@ -1,4 +1,4 @@
-<article>
+<article class="container">
     <section class="controls">
         <div class="controls__selector">
             <app-text [type]="TextType.LABEL" content="Mostrar:" for="itemsPerPage" ></app-text>
@@ -8,8 +8,17 @@
                 <option value="15">15</option>
             </select>   
         </div>
+        <app-select-field
+            [row]="true"
+            label="Ordenar por : "
+            id="orderBy"
+            [options]="sortOptions"
+            labelParam="label"
+            valueParam="value"
+            (change)="changeSortParam($event)"
+        ></app-select-field>
         <div class="controls__selector">
-            <app-text [type]="TextType.LABEL" content="Ordenar por nombre:" ></app-text>
+            <app-text [type]="TextType.LABEL" content="Ordenar de forma:" ></app-text>
             <app-button 
                     [icon]="isAsc ? faArrowDownAZ : faArrowUpAZ"
                     (click)="changeAsc()"
@@ -22,7 +31,7 @@
         <table class="table">
             <thead>
                 <tr class="table__header">
-                    <th class="table__cell" *ngFor="let header of HeadArray">{{header.name}}</th>
+                    <th class="table__cell" *ngFor="let header of HeadArray">{{header.label}}</th>
                 </tr>
             </thead>
             <ng-template [ngIf]="BodyArray.length === 0" [ngIfElse]="data">
@@ -35,8 +44,22 @@
                 <tbody>
                     <tr class="table__row" *ngFor="let data of BodyArray" >
                         <td class="table__cell" *ngFor="let head of HeadArray" >
-                            {{data[head.key]}}
+                            <span *ngIf="head.value === 'price'; else defaultcontent">
+                                {{data[head.value] | currency}}
+                            </span>
+                            <ng-template #defaultcontent>
+                                {{data[head.value]}}
+                            </ng-template>
                         </td>
+                        <ng-template [appRole]="Roles.WAREHOUSE_ASSISTANT">
+                            <td class="" *ngIf="showActions" >
+                                <app-button
+                                    class="btn-main btn-s"
+                                    (click)="doActionOnClick(data)"
+                                    [icon]="faPlus"
+                                ></app-button>
+                            </td>
+                        </ng-template>
                     </tr>   
                 </tbody>
             </ng-template>

@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Brand, BrandResponse } from 'src/app/interfaces/brand.interface';
+import { Brand, BrandResponse } from 'src/app/shared/interfaces/brand.interface';
 import { environment } from '../../../environments/environment';
-import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
 
 @Injectable({
   providedIn: 'root'

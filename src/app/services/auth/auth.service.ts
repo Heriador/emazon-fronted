@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { TokenPayload, UserLogin, UserLoginResponse } from 'src/app/interfaces/user.interface';
+import { TokenPayload, UserLogin, UserLoginResponse } from 'src/app/shared/interfaces/user.interface';
 import { Roles } from 'src/app/shared/roles';
 import { environment } from '../../../environments/environment';
 

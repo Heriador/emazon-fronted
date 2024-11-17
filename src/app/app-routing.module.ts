@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './core/guards/login.guard';
 import { IsAuthenticatedGuard } from './core/guards/is-authenticated.guard';
+import { CategoryPageModule } from './pages/category-page/category-page.module';
+import { BrandPageModule } from './pages/brand-page/brand-page.module';
+import { ItemPageModule } from './pages/item-page/item-page.module';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -25,11 +28,11 @@ const routes: Routes = [
   {
     path: 'dashboard', 
     loadChildren: () => 
-      import('./modules/dashboard/dashboard.module')
+      import('./pages/dashboard/dashboard.module')
     .then(
       (m) => m.DashboardModule
     ),
-    canActivate: [IsAuthenticatedGuard]
+    canActivate: [IsAuthenticatedGuard],
   }
 ];
 

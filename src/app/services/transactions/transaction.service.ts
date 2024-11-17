@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SupplyRequest } from 'src/app/interfaces/supply.interface';
+import { SupplyRequest } from 'src/app/shared/interfaces/supply.interface';
 import { environment } from '../../../environments/environment';
 
 @Injectable({

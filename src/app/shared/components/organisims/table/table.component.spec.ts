@@ -83,4 +83,33 @@ describe('TableComponent', () => {
 
   });
 
+  it('should change sort param and emit value', () => {
+    const selectElement = document.querySelector('#orderBy') as HTMLSelectElement;
+    selectElement.value = 'name';
+
+    const event: Event = new Event('change');
+    Object.defineProperty(event, 'target', { value: selectElement, writable: false });
+
+    jest.spyOn(component.sortParamChange, 'emit');
+
+    component.changeSortParam(event);
+
+    expect(component.sortParamChange.emit).toHaveBeenCalledWith('name');
+  });
+
+  it('should do action on click and emit value', () => {
+    jest.spyOn(component.actionOnClick, 'emit');
+    const data = { id: 1, name: 'test' };
+    component.doActionOnClick(data);
+    expect(component.actionOnClick.emit).toHaveBeenCalledWith(data);
+  });
+
+  it('should return sort options', () => {
+    component.HeadArray = [
+      { name: 'name', sortable: true },
+      { name: 'price', sortable: false }
+    ];
+    expect(component.sortOptions).toEqual([{ name: 'name', sortable: true }]);
+  });
+
 });

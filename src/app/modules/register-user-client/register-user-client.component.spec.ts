@@ -2,14 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterUserClientComponent } from './register-user-client.component';
 import { UsersService } from '../../services/user/users.service';
-import { NotificationService } from '../../core/services/notification/notification.service';
+import { NotificationService } from '../../services/notification/notification.service';
 import { InputFieldComponent } from '../../shared/components/molecules/input-field/input-field.component';
 import { FormBuilder } from '@angular/forms';
 import { NotificationType } from '../../shared/constants/enums';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { GENERIC_ERROR_MESSAGE, USER_ERROR_MESSAGES, USER_ERROR_MESSAGES_BY_CODE, USER_FIELD_NAMES, USER_RESPONSE_MESSAGE } from '../../shared/constants/user-constant';
 import { of, throwError } from 'rxjs';
-import { User } from 'src/app/interfaces/user.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 describe('RegisterUserClientComponent', () => {
   let component: RegisterUserClientComponent;

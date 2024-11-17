@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, inject, Input, OnInit } from '@angular/core';
-import { BrandResponse } from 'src/app/interfaces/brand.interface';
-import { CategoryResponse } from 'src/app/interfaces/category.interface';
+import { BrandResponse } from 'src/app/shared/interfaces/brand.interface';
+import { CategoryResponse } from 'src/app/shared/interfaces/category.interface';
 import { TextType } from '../../../../shared/constants/enums';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 

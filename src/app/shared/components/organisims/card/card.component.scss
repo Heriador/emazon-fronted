@@ -14,7 +14,6 @@
 
     .image-container{
         position: relative;
-        // display: inline-block;
 
         .card-image{
             display: block;
@@ -25,14 +24,6 @@
             border-top-left-radius: 0.8rem;
             border-top-right-radius: 0.8rem;
 
-        }
-
-        
-        app-button{
-            position: absolute;
-            top: 10%; /* Centra el botón verticalmente */
-            left: 90%; /* Centra el botón horizontalmente */
-            transform: translate(-50%, -50%);
         }
     }
 

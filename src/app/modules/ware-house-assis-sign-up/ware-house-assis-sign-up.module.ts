@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SignUpFormComponent } from './components/pages/sign-up-form/sign-up-form.component';
+import { WarehouseAssistantSignUpComponent } from './sign-up-form.component';
 import { SharedModule } from "../../shared/shared.module";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
-    // SignUpFormComponent
+    WarehouseAssistantSignUpComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
 ]
 })
 export class WareHouseAssisSignUpModule { }
