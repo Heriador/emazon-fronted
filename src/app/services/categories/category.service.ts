@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Category, CategoryResponse } from '../../interfaces/category.interface';
+import { Category, CategoryResponse } from '../../shared/interfaces/category.interface';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
 
 @Injectable({
   providedIn: 'root'

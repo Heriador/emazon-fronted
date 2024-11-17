@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { TransactionService } from './transaction.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { SupplyRequest } from 'src/app/interfaces/supply.interface';
+import { SupplyRequest } from 'src/app/shared/interfaces/supply.interface';
 import { environment } from '../../../environments/environment';
 
 describe('TransactionService', () => {

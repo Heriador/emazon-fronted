@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationComponent } from './notification.component';
-import { NotificationService } from '../../../../core/services/notification/notification.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 import { of } from 'rxjs';
 import { IconType, NotificationType } from '../../../constants/enums';
 

@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CategoryService } from './category.service';
 import { HttpResponse } from '@angular/common/http';
-import { Category, CategoryResponse } from 'src/app/interfaces/category.interface';
+import { Category, CategoryResponse } from 'src/app/shared/interfaces/category.interface';
 import { environment } from '../../../environments/environment';
-import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
 
 
 describe('CategoryService', () => {

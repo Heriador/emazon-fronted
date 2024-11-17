@@ -22,6 +22,7 @@ import { MultiSelectFieldComponent } from './components/molecules/multi-select-f
 import { CardComponent } from './components/organisims/card/card.component';
 import { RolesDirective } from './roles.directive';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from './components/organisims/footer/footer.component';
 
 
 let components = [
@@ -39,6 +40,7 @@ let components = [
   NavLinkComponent,
   NavComponent,
   HeaderComponent,
+  FooterComponent,
   ModalComponent,
   TableCellComponent,
   TableHeadComponent,

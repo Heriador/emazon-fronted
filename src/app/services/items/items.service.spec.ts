@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { ItemsService } from './items.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Item, ItemResponse } from 'src/app/interfaces/item.interface';
+import { Item, ItemResponse } from 'src/app/shared/interfaces/item.interface';
 import { environment } from '../../../environments/environment';
-import { Pagination } from 'src/app/interfaces/paginated.interface';
+import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
 
 describe('ItemsService', () => {
   let service: ItemsService;

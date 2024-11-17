@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IconType, NotificationType, TextType } from '../../../constants/enums';
-import { NotificationService } from '../../../../core/services/notification/notification.service';
+import { NotificationService } from '../../../../services/notification/notification.service';
 import { 
   faCircleCheck, 
   faCircleXmark,

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
-import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Roles } from '../../../roles';
 
 @Component({
   selector: 'app-table',
@@ -9,19 +10,24 @@ import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight } from '@fortaw
 })
 export class TableComponent implements OnInit {
 
+  Roles = Roles;
   TextType = TextType;
   faArrowDownAZ = faArrowDownAZ;
   faArrowUpAZ = faArrowUpAZ;
   faAnglesLeft = faAnglesLeft;
   faAnglesRight = faAnglesRight;
+  faPlus = faPlus;
 
   @Input() HeadArray: any[] = [];
   @Input() BodyArray: any[] = [];
   @Input() totalElements: number = 0;
   @Input() totalPages: number = 1;
+  @Input() showActions: boolean = false;
   @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() sizeChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() isAscChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() actionOnClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sortParamChange: EventEmitter<string> = new EventEmitter<string>();
 
   page: number = 0;
   size: number = 5;
@@ -31,6 +37,10 @@ export class TableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  get sortOptions(){
+    return this.HeadArray.filter((head) => head.sortable);
   }
 
   changeAsc(){
@@ -55,6 +65,16 @@ export class TableComponent implements OnInit {
     const size = parseInt(selectElement.value);
     this.size = size;
     this.sizeChange.emit(size);
+  }
+
+  changeSortParam(event: Event){
+    const selectElement = event.target as HTMLSelectElement;
+    const sortParam = selectElement.value;
+    this.sortParamChange.emit(sortParam);
+  }
+
+  doActionOnClick(data: any){
+    this.actionOnClick.emit(data);
   }
 
 }

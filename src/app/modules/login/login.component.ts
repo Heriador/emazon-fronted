@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationType, TextType } from '../../shared/constants/enums';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
-import { NotificationService } from '../../core/services/notification/notification.service';
+import { NotificationService } from '../../services/notification/notification.service';
 import { Router } from '@angular/router';
 
 @Component({
