@@ -9,6 +9,10 @@ import { ItemsService } from '../../services/items/items.service';
 import { NotificationType, TextType } from '../../shared/constants/enums';
 import { ERROR_MESSAGES_BY_CODE, GENERIC_ERROR_MESSAGE } from '../../shared/constants/item-constants';
 import { Roles } from '../../shared/roles';
+import { CartService } from '../../services/cart/cart.service';
+import { CartRequest } from 'src/app/shared/interfaces/cart.interface';
+import { HttpStatusCode } from '@angular/common/http';
+import { CART_RESPONSE_MESSAGES } from '../../shared/constants/cart-constants';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +48,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private readonly itemService: ItemsService,
     private readonly notificationService: NotificationService,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly cartService: CartService
   ) { 
   
   }
@@ -69,18 +74,36 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  addItemToCart(cartRequest: CartRequest){
 
-  // getErrorMessage(control: AbstractControl | null, fieldName: string): string{
+    console.log("cartRequest",cartRequest);
 
-  //   if(control?.touched && control?.errors){
-  //     const firtError = Object.keys(control.errors)[0] as keyof typeof ERROR_MESSAGES;
-  //     const error = control.errors[firtError];
-  //     return ERROR_MESSAGES[firtError](fieldName,error);
-  //   }
+    this.cartService
+      .addItemToCart(cartRequest)
+      .subscribe({
+        next: (response) => {
 
-  //   return '';
-  // }
+          if(response.status !== HttpStatusCode.Created){
+            this.notificationService.show({
+              message: CART_RESPONSE_MESSAGES.UNEXPECTED_RESPONSE,
+              type: NotificationType.ERROR
+            });
+          }
 
+          this.notificationService.show({
+            message: CART_RESPONSE_MESSAGES.ITEM_ADDED,
+            type: NotificationType.SUCCESS
+          });
+        },
+        error: (error) => {
+          this.notificationService.show({
+            message: error.message || GENERIC_ERROR_MESSAGE,
+            type: NotificationType.ERROR
+          });
+        }
+      })
+
+  }
 
   parsePrice(price: number): string{
     const formattedNumber = price.toLocaleString('es-CO', {

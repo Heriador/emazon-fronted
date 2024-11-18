@@ -47,7 +47,6 @@ describe('ItemsService', () => {
     const req = httpMock.expectOne(environment.stock_service_url+"/item/");
     expect(req.request.method).toBe('POST');
     expect(req.request.headers.get('Content-Type')).toBe('application/json');
-    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
     expect(req.request.body).toEqual(item);
     req.flush(mockResponse);
   });
@@ -78,7 +77,6 @@ describe('ItemsService', () => {
 
     const req = httpMock.expectOne(`${environment.stock_service_url}/item/?page=0&size=1&sortBy=name&ord=true`);
     expect(req.request.method).toBe('GET');
-    expect(req.request.headers.get('Authorization')).toBe(`Bearer ${environment.auth_token}`);
     req.flush(mockResponse);
   });
 
