@@ -11,14 +11,12 @@ import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
 export class ItemsService {
 
   private readonly apiUrl = environment.stock_service_url+"/item/";
-  private readonly token = environment.auth_token;
 
   constructor(private readonly http: HttpClient) { }
 
   createItem(item: Item): Observable<HttpResponse<Item>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token}`
     })
 
     return this.http.post<Item>(this.apiUrl, item, 
@@ -29,9 +27,7 @@ export class ItemsService {
   }
 
   getItems(page: number, size: number, sortParam: string ,isAsc: boolean): Observable<Pagination<ItemResponse>>{
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`
-    });
+  
 
     let params = new HttpParams()
       .set('page', page.toString())
@@ -41,7 +37,7 @@ export class ItemsService {
 
     console.log(params.toString());
 
-    return this.http.get<Pagination<ItemResponse>>(this.apiUrl, {headers, params});
+    return this.http.get<Pagination<ItemResponse>>(this.apiUrl, {params});
   }
 
 }

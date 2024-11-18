@@ -44,7 +44,7 @@
                     (click)="increaseQuantity()"
                 ></app-button>
             </div>
-            <app-button  [text]="'añadir a carrito'" class="btn-main btn-s" ></app-button>
+            <app-button *appRole="Roles.CLIENT" [disabled]="quantity === 0"  [text]="'añadir a carrito'" class="btn-main btn-s" (click)="addProduct()"></app-button>
         </div>
     </div>
 </div>
