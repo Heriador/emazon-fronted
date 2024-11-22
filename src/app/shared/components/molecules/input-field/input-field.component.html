@@ -1,5 +1,5 @@
 <div class="input-field">
-    <app-text [content]="label" [for]="id" [type]="TextType.LABEL" ></app-text>
+    <app-text *ngIf="label" [content]="label" [class]="class" [for]="id" [type]="TextType.LABEL" ></app-text>
     <app-input 
         [type]="inputType" 
         [id]="id" 

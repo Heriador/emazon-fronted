@@ -2,6 +2,7 @@
     <section class="container__items">
         <div class="container__items-selectors">
             <app-select-field
+                class="body-m"
                 [row]="true"
                 label="Mostrar: "
                 id="itemsPerPage"
@@ -9,6 +10,7 @@
                 (change)="changeSize($event)"
             ></app-select-field>
             <app-select-field
+                class="body-m"
                 [row]="true"
                 label="Ordenar por : "
                 id="orderBy"

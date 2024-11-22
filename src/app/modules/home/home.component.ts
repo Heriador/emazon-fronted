@@ -96,8 +96,9 @@ export class HomeComponent implements OnInit {
           });
         },
         error: (error) => {
+          console.log("error",error);
           this.notificationService.show({
-            message: error.message || GENERIC_ERROR_MESSAGE,
+            message: error.error.message || GENERIC_ERROR_MESSAGE,
             type: NotificationType.ERROR
           });
         }

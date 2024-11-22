@@ -1,13 +1,13 @@
 <article class="container">
     <section class="controls">
-        <div class="controls__selector">
-            <app-text [type]="TextType.LABEL" content="Mostrar:" for="itemsPerPage" ></app-text>
-            <select id="itemsPerPage" (change)="changeSize($event)">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-            </select>   
-        </div>
+        <app-select-field
+            class="body-s"
+            [row]="true"
+            label="Mostrar: "
+            id="itemsPerPage"
+            [options]="[5,10,15]"
+            (change)="changeSize($event)"
+        ></app-select-field>
         <app-select-field
             [row]="true"
             label="Ordenar por : "

@@ -124,7 +124,7 @@ p{
 
 .body-m-regular{
   @include poppins-regular;
-  font-size: 18px;
+  font-size: 18px !important;
 }
 
 .body-s{

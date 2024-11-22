@@ -15,6 +15,7 @@ export class InputComponent implements OnInit {
   @Input() value = '';
   @Input() disabled: boolean = false;
   @Input() error: boolean = false;
+  @Input() class: string = '';
 
   @Output() focus = new EventEmitter<FocusEvent>();
 

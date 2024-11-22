@@ -1,0 +1,135 @@
+<article class="container">
+    <section class="container__items">
+        <div class="selectors">
+            <div class="container__page-selectors">
+                <app-select-field
+                    class="body-s"
+                    [row]="true"
+                    label="Mostrar: "
+                    id="itemsPerPage"
+                    [options]="[5,10,15]"
+                    (change)="changeSize($event)"
+                ></app-select-field>
+                <div class="controls__selector">
+                    <app-text [type]="TextType.LABEL" content="Ordenar de forma:" class="body-s" ></app-text>
+                    <app-button 
+                            [icon]="isAsc ? faArrowDownAZ : faArrowUpAZ"
+                            (click)="changeAsc()"
+                            class="btn-text btn-l"
+                    ></app-button>
+                </div>
+            </div>
+            <form [formGroup]="filterForm" (submit)="changeFilter()">
+            <div class="container__page-selectors">
+                    <app-select-field
+                        class="body-s"
+                        [row]="true"
+                        label="Filtrar por: "
+                        id="filterBy"
+                        [options]="[{label: 'selecciona...', value: ''},{label: 'Marca', value: 'brand'}, {label: 'Categoria', value: 'category'}]"
+                        labelParam="label"
+                        valueParam="value"
+                        formControlName="filterBy"
+                    ></app-select-field>
+                    <app-input-field
+                        class="body-s"
+                        inputType="text"
+                        id="search"
+                        name="search"
+                        placeholder="Buscar"
+                        formControlName="filterString"
+                    ></app-input-field>
+                    <app-button
+                        class="btn-main btn-s"
+                        [text]="'Filtrar'"
+                    ></app-button>
+            </div>
+            </form>
+        </div>
+        <div class="container__cards">
+            <div *ngIf="cartItems.length === 0; else cartItemsTemplate">
+                <p>Carrito Esta vacio</p>
+            </div>
+            <ng-template #cartItemsTemplate>
+                <div *ngFor="let item of cartItems" class="card">
+                    <div class="card__left">
+                        <img src="assets/images/placeholder.webp" class="card-image"  alt="placeholder" >
+
+                        <!-- <app-text 
+                            [type]="TextType.H4"
+                            content="FOTO"
+                        ></app-text> -->
+                    </div>
+                    <div class="card__right">
+                        <div class="card__item-info">
+                            <app-text
+                                [type]="TextType.H4"
+                                [content]="item.name"
+                            ></app-text>
+                            <app-text
+                                class="body-xs"
+                                [content]="'Marca: '+item.brand.name"
+                            ></app-text>
+                            <app-text
+                                class="body-xs"
+                                [content]="'Categorias: '+getCategoriesNames(item.categories)"
+                            ></app-text>
+                            <div *ngIf="item.stock === 0; else stock">
+                                <app-text
+                                    content="No hay stock disponible"
+                                ></app-text>
+                                <app-text
+                                    [content]="'Promiza fecha de entrega: '+getNextSupplyDate(item.nextSupplyDate)"
+                                ></app-text>
+                            </div>
+                            <ng-template #stock>
+                                <app-text
+                                    [content]="'Cantidad: '+item.cartQuantity"
+                                ></app-text>
+                                <app-text
+                                    [content]="'Subtotal: '+(item.cartPrice|currency)"
+                                ></app-text>
+                            </ng-template>
+                            
+                        </div>
+                        <app-button
+                        class="btn-text btn-l"
+                            [icon]="faTrash"
+                            (click)="deleteItem(item.id)"
+                        ></app-button>
+                    </div>
+                </div>
+            </ng-template>
+    
+        </div>
+        <div class="container__page-selectors">
+            <app-button
+                class="btn-text btn-s"
+                [icon]="faAnglesLeft"
+                [disabled]="page === 0"
+                (click)="previousPage()"
+            ></app-button>
+            <div class="controls__selector">
+                <app-text
+                    [content]="(page + 1).toString()"
+                ></app-text>
+            </div>
+            <app-button
+                class="btn-text btn-s"
+                [icon]="faAnglesRight"
+                [disabled]="(page+1) === totalPages"
+                (click)="nextPage()"
+            ></app-button>
+        </div>
+    </section>
+    
+    <section class="container__cart-total">
+        <app-text
+            [content]="'Total: '+(totalPrice|currency)"
+        ></app-text>
+        <app-button
+            class="btn-main btn-l"
+            [text]="'Pagar'"
+        ></app-button>
+    </section>
+</article>
