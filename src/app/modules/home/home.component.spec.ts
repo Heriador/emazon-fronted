@@ -12,23 +12,31 @@ import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { ERROR_MESSAGES_BY_CODE, GENERIC_ERROR_MESSAGE } from '../../shared/constants/item-constants';
 import { NotificationType } from '../../shared/constants/enums';
 import { CategoryResponse } from 'src/app/shared/interfaces/category.interface';
+import { CartRequest } from 'src/app/shared/interfaces/cart.interface';
+import { CartService } from '../../services/cart/cart.service';
+import { CART_GENERIC_ERROR_MESSAGE, CART_RESPONSE_MESSAGES } from '../../shared/constants/cart-constants';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let itemService: jest.Mocked<ItemsService>;
   let notificationService: jest.Mocked<NotificationService>;
+  let cartService: jest.Mocked<CartService>;
 
 
   beforeEach(async () => {
 
     itemService = {
-      getItems: jest.fn().mockReturnValue({ subscribe: jest.fn() }),
+      getItems: jest.fn().mockReturnValue({ subscribe: jest.fn() })
     } as unknown as jest.Mocked<ItemsService>;
 
     notificationService = {
       show: jest.fn()
     } as unknown as jest.Mocked<NotificationService>;
+
+    cartService = {
+      addItemToCart: jest.fn().mockReturnValue({ subscribe: jest.fn() })
+    } as unknown as jest.Mocked<CartService>;
 
     await TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
@@ -36,7 +44,8 @@ describe('HomeComponent', () => {
       providers:[
         FormBuilder,
         { provide: ItemsService, useValue: itemService },
-        { provide: NotificationService, useValue: notificationService }
+        { provide: NotificationService, useValue: notificationService },
+        { provide: CartService, useValue: cartService }
       ]
     })
     .compileComponents();
@@ -103,9 +112,22 @@ describe('HomeComponent', () => {
   
       component.ngOnInit();
   
-      expect(itemService.getItems).toHaveBeenCalled();
+      expect(itemService.getItems).toBeCalledTimes(2);
       expect(notificationService.show).toHaveBeenCalledWith({
         message: ERROR_MESSAGES_BY_CODE[HttpStatusCode.NotFound] || GENERIC_ERROR_MESSAGE,
+        type: NotificationType.ERROR
+      });
+    });
+
+    it('should show generic error message when get items error and status is not found', () => {
+      const errorResponse = new HttpResponse({ status: HttpStatusCode.BadGateway });
+      jest.spyOn(itemService, 'getItems').mockReturnValue(throwError(() => errorResponse));
+  
+      component.ngOnInit();
+  
+      expect(itemService.getItems).toBeCalledTimes(2);
+      expect(notificationService.show).toHaveBeenCalledWith({
+        message: GENERIC_ERROR_MESSAGE,
         type: NotificationType.ERROR
       });
     });
@@ -193,6 +215,90 @@ describe('HomeComponent', () => {
       component.nextPage();
       expect(component.page).toBe(0);
     });
+  })
+
+  describe('addItemToCart', () => {
+
+    it('should add item to cart and show success message', () => {
+      const mockCartRequest: CartRequest = {
+        itemId: 1,
+        quantity: 1
+      }
+
+      const mockResponse = new HttpResponse({ status: HttpStatusCode.Created, body: mockCartRequest });
+
+      jest.spyOn(cartService, 'addItemToCart').mockReturnValue(of(mockResponse));
+
+      component.addItemToCart(mockCartRequest);
+
+      expect(cartService.addItemToCart).toBeCalledTimes(1);
+      expect(notificationService.show).toBeCalledWith({
+        message: CART_RESPONSE_MESSAGES.ITEM_ADDED,
+        type: NotificationType.SUCCESS
+      })
+
+    });
+
+    it('should show error message if response status is not 201', () => {
+      const mockCartRequest: CartRequest = {
+        itemId: 1,
+        quantity: 1
+      }
+
+      const mockResponse = new HttpResponse({ status: HttpStatusCode.Ok, body: mockCartRequest });
+
+      jest.spyOn(cartService, 'addItemToCart').mockReturnValue(of(mockResponse));
+
+      component.addItemToCart(mockCartRequest);
+
+      expect(cartService.addItemToCart).toBeCalledTimes(1);
+      expect(notificationService.show).toBeCalledWith({
+        message: CART_RESPONSE_MESSAGES.UNEXPECTED_RESPONSE,
+        type: NotificationType.ERROR
+      })
+    });
+
+    it('should show error message if addItemToCart throws error', () => {
+
+      const mockerror = {
+        status: HttpStatusCode.BadRequest,
+        error:{
+          message: 'error'
+        }        
+      }
+
+      jest.spyOn(cartService, 'addItemToCart').mockReturnValue(throwError(() => mockerror));
+
+      component.addItemToCart({ itemId: 1, quantity: 1 });
+
+      expect(cartService.addItemToCart).toBeCalledTimes(1);
+      expect(notificationService.show).toBeCalledWith({
+        message: mockerror.error.message,
+        type: NotificationType.ERROR
+      })
+
+    });
+
+    it('should show generic error message if error message is not provided', () => {
+          
+      const mockerror = {
+        status: HttpStatusCode.BadRequest,
+        error:{
+          message: ''
+        }        
+      }
+
+      jest.spyOn(cartService, 'addItemToCart').mockReturnValue(throwError(() => mockerror));
+
+      component.addItemToCart({ itemId: 1, quantity: 1 });
+
+      expect(cartService.addItemToCart).toBeCalledTimes(1);
+      expect(notificationService.show).toBeCalledWith({
+        message: CART_GENERIC_ERROR_MESSAGE,
+        type: NotificationType.ERROR
+      });
+    });
+
   })
 
 });

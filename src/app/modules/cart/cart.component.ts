@@ -2,11 +2,12 @@ import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faAnglesLeft, faAnglesRight, faArrowDownAZ, faArrowUpAZ, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { CartService } from 'src/app/services/cart/cart.service';
-import { NotificationService } from 'src/app/services/notification/notification.service';
-import { NotificationType, TextType } from 'src/app/shared/constants/enums';
+import { CartService } from '../../services/cart/cart.service';
+import { NotificationService } from '../../services/notification/notification.service';
+import { NotificationType, TextType } from '../../shared/constants/enums';
 import { CartItem } from 'src/app/shared/interfaces/cart.interface';
 import { CategoryResponse } from 'src/app/shared/interfaces/category.interface';
+import { CART_ERROR_MESSAGES_BY_CODE, CART_RESPONSE_MESSAGES } from '../../shared/constants/cart-constants';
 
 @Component({
   selector: 'app-cart',
@@ -57,10 +58,9 @@ export class CartComponent implements OnInit {
       .getCartItems(this.page, this.size, this.isAsc, this.categoryName, this.brandName)
       .subscribe({
         next: (response) => {
-
           if(response.status !== HttpStatusCode.Ok){
             this.notificationService.show({
-              message: 'Error loading cart items',
+              message: CART_RESPONSE_MESSAGES.UNEXPECTED_RESPONSE,
               type: NotificationType.ERROR
             })
           }
@@ -70,10 +70,13 @@ export class CartComponent implements OnInit {
           this.totalElements = response.body?.totalElements || 0;
           this.totalPages = response.body?.totalPages || 0;
           this.totalPrice = response.body?.totalPrice || 0;
-          this.totalPrice = response.body?.totalPrice || 0;
         },
         error: error => {
           console.error(error);
+          this.notificationService.show({
+            message: CART_ERROR_MESSAGES_BY_CODE[error.status],
+            type: NotificationType.ERROR
+          })
         }
       })
   }
@@ -89,6 +92,10 @@ export class CartComponent implements OnInit {
         },
         error: error => {
           console.error(error);
+          this.notificationService.show({
+            message: CART_ERROR_MESSAGES_BY_CODE[error.status],
+            type: NotificationType.ERROR
+          })
         }
       })
   }

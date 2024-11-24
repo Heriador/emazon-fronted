@@ -19,6 +19,8 @@ export const CART_ERROR_MESSAGES_BY_CODE = {
     [CART_ERROR_CODES.BAD_REQUEST]: 'petición invalida, revisa los datos ingresados.',
     [CART_ERROR_CODES.UNAUTHORIZED]: 'No autorizado.',
     [CART_ERROR_CODES.FORBIDDEN]: 'No tienes permisos para realizar esta acción.',
-    [CART_ERROR_CODES.NOT_FOUND]: 'No se encontró la informacion requerida.',
+    [CART_ERROR_CODES.NOT_FOUND]: 'No se encontró el articulo.',
     [CART_ERROR_CODES.SERVER_ERROR]: 'Error en el servidor, intenta más tarde.',
 }
+
+export const CART_GENERIC_ERROR_MESSAGE = 'Error al añadir el articulo al carrito';
