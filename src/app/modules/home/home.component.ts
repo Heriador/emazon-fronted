@@ -12,7 +12,7 @@ import { Roles } from '../../shared/roles';
 import { CartService } from '../../services/cart/cart.service';
 import { CartRequest } from 'src/app/shared/interfaces/cart.interface';
 import { HttpStatusCode } from '@angular/common/http';
-import { CART_RESPONSE_MESSAGES } from '../../shared/constants/cart-constants';
+import { CART_GENERIC_ERROR_MESSAGE, CART_RESPONSE_MESSAGES } from '../../shared/constants/cart-constants';
 
 @Component({
   selector: 'app-home',
@@ -96,8 +96,10 @@ export class HomeComponent implements OnInit {
           });
         },
         error: (error) => {
+          console.log("error",error);
+          // console.log(error.error.message)
           this.notificationService.show({
-            message: error.message || GENERIC_ERROR_MESSAGE,
+            message: error.error.message || CART_GENERIC_ERROR_MESSAGE,
             type: NotificationType.ERROR
           });
         }

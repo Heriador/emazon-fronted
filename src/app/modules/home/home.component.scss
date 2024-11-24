@@ -11,35 +11,6 @@
     justify-content: center;
     margin: 20px;
 
-    &__modal{
-        display: flex;
-        align-self: flex-end;
-    }
-
-    &-form{
-        display: flex;
-        flex-direction: column;
-    }
-
-    &-inputs{
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        padding: 1rem;
-        margin: 1rem;
-        height: 20rem;
-        overflow-y: auto;
-    }
-
-   
-
-    &-btn{
-        display: flex;
-        gap: 1rem;
-        justify-content: end;
-    }
-
     &__items{
         display: flex;
         flex-direction: column;

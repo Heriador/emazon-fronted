@@ -47,6 +47,14 @@ const routes: Routes = [
             .then(
               (m) => m.WarehouseAssistantPageModule
             )
+        },
+        {
+          path: 'cart',
+          loadChildren: () => 
+            import('src/app/pages/cart-page/cart-page.module')
+            .then(
+              (m) => m.CartPageModule
+            )
         }
       ]
     }

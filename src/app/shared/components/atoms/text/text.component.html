@@ -6,7 +6,7 @@
     <h4 *ngSwitchCase="TextType.H4" [ngClass]="class">{{ content }}</h4>
     <p *ngSwitchCase="TextType.P" [ngClass]="class" class="body-m">{{ content }}</p>
     <span *ngSwitchCase="TextType.SPAN" [ngClass]="class">{{ content }}</span>
-    <label *ngSwitchCase="TextType.LABEL" [for]="for" [ngClass]="class" class="body-xs" >{{ content }}</label>
+    <label *ngSwitchCase="TextType.LABEL" [for]="for" class="body-xs" [ngClass]="class"  >{{ content }}</label>
     <p *ngSwitchDefault [ngClass]="class" class="body-m">{{ content }}</p>
 </ng-container>
 
