@@ -71,7 +71,7 @@ export class ItemsComponent implements OnInit {
     {label: 'Nombre', value: 'name', sortable: true},
     {label: 'Descripción', value: 'description'},
     {label: 'Precio', value: 'price'},
-    {label: 'Stock', value: 'stock'},
+    {label: 'Suministro', value: 'stock'},
     {label: 'Marca', value: 'brand', sortable: true},
     {label: 'Categorías', value: 'categories', sortable: true},
   ]
@@ -206,14 +206,25 @@ export class ItemsComponent implements OnInit {
             message: RESPONSE_MESSAGE.ITEM_CREATED,
             type: NotificationType.SUCCESS
           })
-          // const newItem: ItemResponse = {
-          //   ...this.itemForm.value,
-          //   id: null
-          // };
-          // this.items.content.unshift(newItem);
-          // this.items.content.pop();
+
+          
+
+          const newItem: ItemView = {
+            ...this.itemForm.value,
+            id: this.items.length + 1,
+            brand: this.brands.find((brand) => brand.id === Number(this.itemForm.value.brandId))?.name as string,
+            categories: this.categories
+              .filter((category) => this.itemForm.value.categories.includes(category.data.id))
+              .map((category) => category.data.name)
+              .join(', ')
+          };
+          console.log(newItem)
+          this.items.unshift(newItem);
+          this.items.pop();
 
           this.closeModal();
+
+
         },
         error: (error) => {
           this.notificationService.show({

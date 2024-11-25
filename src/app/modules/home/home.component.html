@@ -14,7 +14,7 @@
                 [row]="true"
                 label="Ordenar por : "
                 id="orderBy"
-                [options]="[{label:'nombre',value: 'name'}, {label:'marca',value: 'brand'}, {label:'categoria',value:'categories'}]"
+                [options]="[{label:'nombre',value: 'name'}, {label:'marca',value: 'brand'}, {label:'N° categorias',value:'categories'}]"
                 labelParam="label"
                 valueParam="value"
                 (change)="changeSortParam($event)"
@@ -31,6 +31,10 @@
             </div>
         </div>
         <div class="container__items-card">
+            <app-text
+                *ngIf="items.content.length === 0"
+                content="No hay productos disponibles"
+            ></app-text>
             <app-card
                 *ngFor="let item of items.content"
                 [id]="item.id"

@@ -12,6 +12,7 @@ export class ButtonComponent implements OnInit {
   @Input() text: string = '';
   @Input() icon?: IconDefinition;
   @Input() disabled: boolean = false;
+  @Input() type: 'button' | 'submit' = 'submit';
 
 
   constructor() { }

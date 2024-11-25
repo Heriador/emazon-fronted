@@ -11,7 +11,7 @@
                     (change)="changeSize($event)"
                 ></app-select-field>
                 <div class="controls__selector">
-                    <app-text [type]="TextType.LABEL" content="Ordenar de forma:" class="body-s" ></app-text>
+                    <app-text [type]="TextType.LABEL" content="Ordenar por nombre:" class="body-s" ></app-text>
                     <app-button 
                             [icon]="isAsc ? faArrowDownAZ : faArrowUpAZ"
                             (click)="changeAsc()"
@@ -46,19 +46,33 @@
             </div>
             </form>
         </div>
+        <div class="filters" *ngIf="hasFilters()">
+            <div 
+                *ngFor="let filter of filters | keyvalue"
+                class="filters-item"
+            >
+                <app-text
+                    [content]="filter.key+': '+filter.value"
+                    class="body-xs"
+                ></app-text>
+                <app-button
+                    class="btn-text btn-s"
+                    text="X"
+                    (click)="clearFilter(filter.key)"
+                ></app-button>
+            </div>
+        </div>
         <div class="container__cards">
-            <div *ngIf="cartItems.length === 0; else cartItemsTemplate">
+            <div *ngIf="cartItems.length === 0 && !hasFilters(); else cartItemsTemplate">
                 <p>Carrito Esta vacio</p>
+            </div>
+            <div *ngIf="hasFilters() && cartItems.length === 0">
+                <p>No hay resultados</p>
             </div>
             <ng-template #cartItemsTemplate>
                 <div *ngFor="let item of cartItems" class="card">
                     <div class="card__left">
                         <img src="assets/images/placeholder.webp" class="card-image"  alt="placeholder" >
-
-                        <!-- <app-text 
-                            [type]="TextType.H4"
-                            content="FOTO"
-                        ></app-text> -->
                     </div>
                     <div class="card__right">
                         <div class="card__item-info">
@@ -130,6 +144,7 @@
         <app-button
             class="btn-main btn-l"
             [text]="'Pagar'"
+            (click)="buyCart()"
         ></app-button>
     </section>
 </article>

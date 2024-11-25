@@ -283,4 +283,47 @@ describe('CartComponent', () => {
     });
   })
 
+
+  describe('clearFilter', () => {
+    it('should clear the category filter', () => {
+      component.categoryName = 'Test Category';
+      component.filters.categoria = 'Test Category';
+
+      jest.spyOn(cartService, 'getCartItems').mockReturnValueOnce(of({status: 200,body: mockResponse} as HttpResponse<CartResponse>));
+
+      component.clearFilter('categoria');
+
+      expect(component.categoryName).toEqual('');
+      expect(component.filters.categoria).toBeUndefined();
+      expect(component.cartItems).toEqual([mockCartItem]);
+    });
+
+    it('should clear the brand filter', () => {
+      component.brandName = 'Test Brand';
+      component.filters.marca = 'Test Brand';
+
+      jest.spyOn(cartService, 'getCartItems').mockReturnValueOnce(of({status: 200,body: mockResponse} as HttpResponse<CartResponse>));
+
+      component.clearFilter('marca');
+
+      expect(component.brandName).toEqual('');
+      expect(component.filters.marca).toBeUndefined();
+      expect(component.cartItems).toEqual([mockCartItem]);
+    });
+  });
+
+  describe('buyCart', () => {
+    it('should show a success notification', () => {
+
+      component.buyCart();
+
+      expect(notificationService.show).toBeCalledWith({
+        message: 'Compra realizada con exito',
+        type: 'success'
+      });
+    });
+
+    
+  })
+
 });

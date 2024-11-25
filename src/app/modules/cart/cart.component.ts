@@ -1,7 +1,13 @@
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { faAnglesLeft, faAnglesRight, faArrowDownAZ, faArrowUpAZ, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faAnglesLeft, 
+  faAnglesRight, 
+  faArrowDownAZ, 
+  faArrowUpAZ, 
+  faTrash 
+} from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../../services/cart/cart.service';
 import { NotificationService } from '../../services/notification/notification.service';
 import { NotificationType, TextType } from '../../shared/constants/enums';
@@ -37,6 +43,8 @@ export class CartComponent implements OnInit {
 
   filterForm: FormGroup;
 
+  filters: { categoria?: string, marca?: string  } = {};
+
 
   constructor(
     private readonly cartService: CartService,
@@ -68,7 +76,7 @@ export class CartComponent implements OnInit {
 
           const cartResponse: CartResponse = response.body as CartResponse;
 
-          this.cartItems = cartResponse.content;
+          this.cartItems = cartResponse.content || [];
           this.totalElements = cartResponse.totalElements;
           this.totalPages = cartResponse.totalPages;
           this.totalPrice = cartResponse.totalPrice;
@@ -131,14 +139,18 @@ export class CartComponent implements OnInit {
     const filterString = this.filterForm.get('filterString') as FormControl;
     if(filterBy.value === 'category'){
       this.categoryName = filterString.value;
-      this.brandName = '';
+      this.filters.categoria = this.categoryName;
     }else if(filterBy.value === 'brand'){
       this.brandName = filterString.value;
-      this.categoryName = '';
+      this.filters.marca = this.brandName;
     }else{
       this.categoryName = '';
       this.brandName = '';
     }
+    this.filterForm.reset({
+      filterBy: '',
+      filterString: ''
+    })
     this.getCartItems();
   }
 
@@ -152,5 +164,31 @@ export class CartComponent implements OnInit {
     if(isNaN(date.getTime())) return 'Sin proxima fecha de entega';
 
     return new Intl.DateTimeFormat('es-ES').format(date);
+  }
+
+  clearFilter(filter: string){
+    if(filter === 'categoria'){
+      this.categoryName = '';
+      delete this.filters.categoria;
+    }
+    else{
+      this.brandName = '';
+      delete this.filters.marca;
+    }
+
+    this.getCartItems();
+  }
+
+  hasFilters(): boolean {
+
+    return Object.keys(this.filters).length > 0;
+
+  }
+
+  buyCart(){
+    this.notificationService.show({
+      message: 'Compra realizada con exito',
+      type: NotificationType.SUCCESS
+    })
   }
 }

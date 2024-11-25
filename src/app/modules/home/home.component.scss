@@ -38,6 +38,7 @@
             margin:  1rem 1rem 1rem 0;
             width: 100%;
             grid-template-columns: 1fr;
+            min-height: 50rem;
 
             @include tablet{
                 grid-template-columns: repeat(2, 1fr);
@@ -45,6 +46,10 @@
 
             @include desktop{
                 grid-template-columns: repeat(3, 1fr);
+            }
+
+            @include large-desktop{
+                grid-template-columns: repeat(5, 1fr);
             }
         }
     }
