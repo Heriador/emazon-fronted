@@ -12,7 +12,7 @@ import {
 import { NotificationType, TextType } from '../../shared/constants/enums';
 import { BrandResponse } from 'src/app/shared/interfaces/brand.interface';
 import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
-import { Roles } from '../../shared/roles';
+import { Roles } from '../../shared/constants/roles';
 
 @Component({
   selector: 'app-brands',

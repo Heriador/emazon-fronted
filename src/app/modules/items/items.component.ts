@@ -33,8 +33,8 @@ import {
   SUPPLY_GENERIC_ERROR_MESSAGE, 
   SUPPLY_RESPONSE_MESSAGE 
 } from '../../shared/constants/supply-constants';
-import { Roles } from '../../shared/roles';
-import { arrayMinLengthValidator } from '../../shared/utils/custom-validators';
+import { Roles } from '../../shared/constants/roles';
+import { arrayMinLengthValidator } from '../../shared/validators/custom-validators';
 
 @Component({
   selector: 'app-items',

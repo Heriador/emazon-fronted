@@ -6,7 +6,7 @@ import { User } from '../../shared/interfaces/user.interface';
 import { UsersService } from '../../services/user/users.service';
 import { NotificationType, TextType } from '../../shared/constants/enums';
 import { USER_ERROR_MESSAGES, USER_ERROR_MESSAGES_BY_CODE, USER_FIELD_NAMES, USER_RESPONSE_MESSAGE, GENERIC_ERROR_MESSAGE } from '../../shared/constants/user-constant';
-import { adultValidator } from '../../shared/utils/adult-validator';
+import { adultValidator } from '../../shared/validators/adult-validator';
 import { Router } from '@angular/router';
 
 @Component({

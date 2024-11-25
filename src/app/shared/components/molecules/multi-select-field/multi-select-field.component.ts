@@ -36,8 +36,8 @@ export class MultiSelectFieldComponent<T> implements OnInit, ControlValueAccesso
   selectedItems: SelectItem<CategoryResponse | BrandResponse>[] = [];
   filteredItems: SelectItem<CategoryResponse | BrandResponse>[] = this.items;
 
-  onChange = (value: any) => {};
-  onTouched = () => {};
+  onChange: any = (value: any) => {};
+  onTouched: any = () => {};
 
   constructor() { }
 
@@ -77,6 +77,7 @@ export class MultiSelectFieldComponent<T> implements OnInit, ControlValueAccesso
     item.selected = !item.selected;
     this.selectedItems = this.items.filter(item => item.selected);
     this.onChange(this.selectedItems.map(item => item.data.id));
+    this.onTouched();
   }
 
   removeItem(item: SelectItem<CategoryResponse | BrandResponse>, event: MouseEvent) {

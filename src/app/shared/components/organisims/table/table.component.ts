@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
 import { faArrowDownAZ, faArrowUpAZ, faAnglesLeft, faAnglesRight, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Roles } from '../../../roles';
+import { Roles } from '../../../constants/roles';
 
 @Component({
   selector: 'app-table',

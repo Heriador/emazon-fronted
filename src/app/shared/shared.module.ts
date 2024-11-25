@@ -20,7 +20,7 @@ import { SelectFieldComponent } from './components/molecules/select-field/select
 import { SelectComponent } from './components/atoms/select/select.component';
 import { MultiSelectFieldComponent } from './components/molecules/multi-select-field/multi-select-field.component';
 import { CardComponent } from './components/organisims/card/card.component';
-import { RolesDirective } from './roles.directive';
+import { RolesDirective } from './directives/roles.directive';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/organisims/footer/footer.component';
 

@@ -13,7 +13,7 @@ import {
   USER_FIELD_NAMES, 
   USER_RESPONSE_MESSAGE 
 } from '../../shared/constants/user-constant';
-import { adultValidator } from '../../shared/utils/adult-validator';
+import { adultValidator } from '../../shared/validators/adult-validator';
 
 @Component({
   selector: 'app-sign-up-form',

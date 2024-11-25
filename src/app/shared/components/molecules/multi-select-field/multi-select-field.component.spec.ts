@@ -28,6 +28,19 @@ describe('MultiSelectFieldComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should register onChange function', () => {
+    const fn = () => {};
+    component.registerOnChange(fn);
+    expect(component.onChange).toBe(fn);
+  });
+
+  it('should register onTouched function', () => {
+    const fn = () => {};
+    component.registerOnTouched(fn);
+    expect(component.onTouched).toBe(fn);
+  });
+
+
   it('should filter items', () => {
     let inputElement = fixture.nativeElement.querySelector('[data-test=input]') ;
     const testValue = 'New Value';
@@ -82,11 +95,16 @@ describe('MultiSelectFieldComponent', () => {
       data: {id: 1 , name: 'Test Item', description: 'Test Description' }
     };
 
-    component.items = [item];
-    component.selectedItems = [item];
+    const item2 = {
+      selected: true,
+      data: {id: 2 , name: 'Test Item 2', description: 'Test Description 2' }
+    }
+
+    component.items = [item, ];
+    component.selectedItems = [item, item2];
     component.removeItem(item, event);
 
-    expect(component.selectedItems).toEqual([]);
+    expect(component.selectedItems).toEqual([item2]);
   });
 
   it('should show dropdown', () => {

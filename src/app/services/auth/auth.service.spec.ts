@@ -5,7 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserLogin, UserLoginResponse } from 'src/app/shared/interfaces/user.interface';
-import { Roles } from '../../shared/roles';
+import { Roles } from '../../shared/constants/roles';
 import { environment } from '../../../environments/environment';
 
 describe('AuthService', () => {

@@ -1,11 +1,11 @@
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faAnglesLeft, faAnglesRight, faArrowDownAZ, faArrowUpAZ, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../../services/cart/cart.service';
 import { NotificationService } from '../../services/notification/notification.service';
 import { NotificationType, TextType } from '../../shared/constants/enums';
-import { CartItem } from 'src/app/shared/interfaces/cart.interface';
+import { CartItem, CartResponse } from 'src/app/shared/interfaces/cart.interface';
 import { CategoryResponse } from 'src/app/shared/interfaces/category.interface';
 import { CART_ERROR_MESSAGES_BY_CODE, CART_RESPONSE_MESSAGES } from '../../shared/constants/cart-constants';
 
@@ -58,7 +58,7 @@ export class CartComponent implements OnInit {
       .getCartItems(this.page, this.size, this.isAsc, this.categoryName, this.brandName)
       .subscribe({
         next: (response) => {
-          if(response.status !== HttpStatusCode.Ok){
+          if(response.status !== HttpStatusCode.Ok || !response.body){
             this.notificationService.show({
               message: CART_RESPONSE_MESSAGES.UNEXPECTED_RESPONSE,
               type: NotificationType.ERROR
@@ -66,10 +66,12 @@ export class CartComponent implements OnInit {
           }
           console.log(response.body);
 
-          this.cartItems = response.body?.content || [];
-          this.totalElements = response.body?.totalElements || 0;
-          this.totalPages = response.body?.totalPages || 0;
-          this.totalPrice = response.body?.totalPrice || 0;
+          const cartResponse: CartResponse = response.body as CartResponse;
+
+          this.cartItems = cartResponse.content;
+          this.totalElements = cartResponse.totalElements;
+          this.totalPages = cartResponse.totalPages;
+          this.totalPrice = cartResponse.totalPrice;
         },
         error: error => {
           console.error(error);
@@ -125,13 +127,13 @@ export class CartComponent implements OnInit {
   }
 
   changeFilter(){
-    const filterBy = this.filterForm.get('filterBy')?.value;
-    const filterString = this.filterForm.get('filterString')?.value;
-    if(filterBy === 'category'){
-      this.categoryName = filterString;
+    const filterBy = this.filterForm.get('filterBy') as FormControl;
+    const filterString = this.filterForm.get('filterString') as FormControl;
+    if(filterBy.value === 'category'){
+      this.categoryName = filterString.value;
       this.brandName = '';
-    }else if(filterBy === 'brand'){
-      this.brandName = filterString;
+    }else if(filterBy.value === 'brand'){
+      this.brandName = filterString.value;
       this.categoryName = '';
     }else{
       this.categoryName = '';

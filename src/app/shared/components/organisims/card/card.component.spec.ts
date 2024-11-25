@@ -53,4 +53,15 @@ describe('CardComponent', () => {
     expect(component.quantity).toBe(1);
   });
 
+  it('should addProduct', () => {
+    component.id = 1;
+    component.quantity = 2;
+    
+    const emitSpy = jest.spyOn(component.clickedAdd, 'emit');
+
+    component.addProduct();
+
+    expect(emitSpy).toHaveBeenCalledWith({itemId: 1, quantity: 2});
+  });
+
 });

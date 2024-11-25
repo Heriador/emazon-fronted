@@ -8,7 +8,7 @@ import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
 import { ItemsService } from '../../services/items/items.service';
 import { NotificationType, TextType } from '../../shared/constants/enums';
 import { ERROR_MESSAGES_BY_CODE, GENERIC_ERROR_MESSAGE } from '../../shared/constants/item-constants';
-import { Roles } from '../../shared/roles';
+import { Roles } from '../../shared/constants/roles';
 import { CartService } from '../../services/cart/cart.service';
 import { CartRequest } from 'src/app/shared/interfaces/cart.interface';
 import { HttpStatusCode } from '@angular/common/http';

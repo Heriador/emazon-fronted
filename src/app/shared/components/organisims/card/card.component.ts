@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TextType } from '../../../../shared/constants/enums';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { Roles } from '../../../roles';
+import { Roles } from '../../../constants/roles';
 import { CartRequest } from 'src/app/shared/interfaces/cart.interface';
 @Component({
   selector: 'app-card',
@@ -22,7 +22,6 @@ export class CardComponent implements OnInit {
   @Input() price: string = '';
   @Input() stock: number = 0;
   @Input() categories: string[] = [];
-  // @Output() selectedQuantity: EventEmitter<number> = new EventEmitter<number>();
   @Output() clickedAdd: EventEmitter<CartRequest> = new EventEmitter<CartRequest>();
 
   quantity: number = 1;

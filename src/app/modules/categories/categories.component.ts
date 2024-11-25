@@ -18,7 +18,7 @@ import {
 import { HttpStatusCode } from '@angular/common/http';
 import { CategoryResponse } from 'src/app/shared/interfaces/category.interface';
 import { Pagination } from 'src/app/shared/interfaces/paginated.interface';
-import { Roles } from '../../shared/roles';
+import { Roles } from '../../shared/constants/roles';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',

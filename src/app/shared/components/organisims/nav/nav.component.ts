@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { TextType } from '../../../constants/enums';
-import { Roles } from '../../../roles';
+import { Roles } from '../../../constants/roles';
 
 @Component({
   selector: 'app-nav',

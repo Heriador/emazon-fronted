@@ -44,7 +44,6 @@
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/src/environments",
-      "<rootDir>/src/app/shared/*.directive.ts",
       "<rootDir>/src/app/shared/constants"
     ],
     "globalSetup": "jest-preset-angular/global-setup"

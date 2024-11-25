@@ -107,6 +107,26 @@ describe('LoginComponent', () => {
     expect(router.navigate).toBeCalledWith(['/dashboard']);
   });
 
+  it('should show error message if login service does not return a jwt token', () => {
+    const mockResponse: UserLoginResponse = {
+      jwt: ''
+    }
+    const mockLogin: UserLogin = {
+      email: 'test@gmail.com',
+      password: 'testpassword'
+    }
+
+    jest.spyOn(authService, 'login').mockReturnValue(of(mockResponse)); 
+
+    component.loginForm.setValue(mockLogin);
+    component.onSubmit();
+
+    expect(authService.login).toBeCalledTimes(1);
+    expect(authService.login).toBeCalledWith(mockLogin);
+    expect(notificationService.show).toBeCalledTimes(1);
+
+  });
+
   it('should show error message if login fails', () => {
     const mockLogin: UserLogin = {
       email: 'test@gmail.com',

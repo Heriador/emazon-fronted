@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthService } from '../services/auth/auth.service';
-import { Roles } from './roles';
+import { AuthService } from '../../services/auth/auth.service';
+import { Roles } from '../constants/roles';
 
 @Directive({
   selector: '[appRole]'
